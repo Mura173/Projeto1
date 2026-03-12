@@ -1,14 +1,14 @@
-import { CriptografarSenha } from "../libs/bcrypt.ts";
-import { CadastrarPaciente, ValidarEmail } from "../model/usuarios.ts";
+import { CriptografarSenha, ValidarSenha } from "../libs/bcrypt.ts";
+import { CadastrarPaciente, LoginUsuario, ValidarEmail } from "../model/usuarios.ts";
 import type { NovoPaciente } from "../types/types.ts";
-import { ERROR_REQUIRED_FIELDS, ERROR_USED_EMAIL } from "../util/errors.ts";
+import { ERROR_INVALID_CREDENTIALS, ERROR_NOT_FOUND, ERROR_REQUIRED_FIELDS, ERROR_USED_EMAIL, WELL_SUCCEDED_LOGIN } from "../util/messages.ts";
 
-export async function ValidarCadastroPaciente(data : NovoPaciente) {
+export async function ValidarCadastroPaciente(data: NovoPaciente) {
     if (
         !data.nome || data.nome == undefined || data.nome.length > 100 ||
         !data.email || data.email == undefined || data.email.length > 256 ||
         !data.hash_senha || data.hash_senha == undefined || data.hash_senha.length > 200 ||
-        !data.data_nascimento || data.data_nascimento == undefined || !(new Date(data.data_nascimento))  ||
+        !data.data_nascimento || data.data_nascimento == undefined || !(new Date(data.data_nascimento)) ||
         !data.telefone || data.telefone == undefined || data.telefone.length > 15
     ) {
         return {
@@ -31,6 +31,27 @@ export async function ValidarCadastroPaciente(data : NovoPaciente) {
     let cadastrarPaciente = await CadastrarPaciente(data)
     return {
         data: cadastrarPaciente,
-        status: cadastrarPaciente ? 200 : 400
+        status: cadastrarPaciente ? 201 : 400
+    }
+}
+
+export async function ValidarLoginUsuario(email: string, senha: string) {
+    if (
+        !email || email == undefined || email.length > 256 ||
+        !senha || senha == undefined
+    ) {
+        return ERROR_REQUIRED_FIELDS
+    }
+
+    let login = await LoginUsuario(email)
+
+    if (login) {
+        if (await ValidarSenha(senha, login.toString())) {
+            return WELL_SUCCEDED_LOGIN
+        } else {
+            return ERROR_INVALID_CREDENTIALS
+        }
+    }else{
+        return ERROR_NOT_FOUND
     }
 }
