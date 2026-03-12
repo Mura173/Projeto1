@@ -1,5 +1,5 @@
 import express from "express";
-import { ValidarCadastroPaciente } from "./controller/controller_usuarios.ts";
+import { ValidarCadastroPaciente, ValidarLoginUsuario } from "./controller/controller_usuarios.ts";
 
 const app = express()
 app.use(express.json())
@@ -22,6 +22,16 @@ app.post("/cadastrarPaciente", async (req, res) => {
 
     res.status(cadastrarPaciente.status)
     res.json(cadastrarPaciente)
+})
+
+app.post("/login", async (req, res) => {
+    let email = req.body.email
+    let senha = req.body.senha
+
+    let login = await ValidarLoginUsuario(email, senha)
+
+    res.status(login.status_code)
+    res.json(login)
 })
 
 app.listen(5000, () => {

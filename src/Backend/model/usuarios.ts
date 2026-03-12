@@ -1,5 +1,6 @@
 import {prisma} from '../libs/prisma.ts';
 import type { NovoPaciente } from '../types/types.ts';
+import { ERROR_NOT_FOUND } from '../util/messages.ts';
 
 export async function CadastrarPaciente(data : NovoPaciente) {
     try {
@@ -51,6 +52,28 @@ export async function ValidarEmail(email:string) {
         } else {
             return true
         }
+
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+export async function LoginUsuario(email:string) {
+    try {
+        let findUser = await prisma.usuarios.findUnique({
+            where: {
+                email: email
+            }
+        })
+
+        if (findUser) {
+            return findUser.hash_senha
+        }
+        else{
+            return false
+        }
+
 
     } catch (error) {
         console.log(error)
