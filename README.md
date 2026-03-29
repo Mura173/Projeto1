@@ -11,7 +11,10 @@
 ## Professores Orientadores: <a href="https://www.linkedin.com/in/katia-bossi/">Katia Bossi</a>, <a href="https://www.linkedin.com/in/marco-aurelio-lima-barbosa/">Marco Aurélio</a>, <a href="https://www.linkedin.com/in/victorbarq/">Victor Rosetti</a>, <a href="https://www.linkedin.com/in/rodrigo-da-rosa-phd/">Rodrigo da Rosa</a>
 
 ## Descrição
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce aliquet neque lorem, nec lobortis orci rhoncus vitae. Aenean viverra cursus maximus. Duis metus ligula, lacinia sit amet risus nec, pharetra aliquam ante. In auctor ornare felis vitae pulvinar. Donec ac velit in dolor eleifend mollis. Donec finibus sapien eu pharetra consequat. Sed in euismod tortor. Donec et ante sollicitudin, porta turpis sit amet, dapibus mi. Curabitur fringilla volutpat enim sit amet ultricies. Nulla facilisi. Vivamus aliquam sit amet eros a egestas.
+A VitalTech é um projeto feito por estudantes da FECAP de Ciências da Computação para o Projeto Integrador(PI), com o intuíto de desenvolver uma solução digital para a clínica de fisioterapia **Maya Yamamoto RPG**. O projeto é composto por três partes:
+ - Aplicativo Android: aplicativo mobile voltado para os pacientes da clínica, permitindo o acesso ao plano de exercícios prescritos, registro de execução e acompanhamento de evolução.
+ - Frontend: painel web administrativo voltado para profissionais e administradores da clínica, permitindo o gerenciamento de pacientes, prontuários e banco de exercícios.
+ - Backend: servidor responsável por gerenciar os dados da clínica, cuidar dos acessos e conectar o aplicativo ao painel web.
 
 ## 📄 Entregas
 | **Disciplina**              | **Entrega 1**                      | **Entrega 2**                        |
@@ -38,8 +41,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce aliquet neque lor
   &emsp;|-->Entrega 2<br>
       &emsp;&emsp;|-->Análise Descritiva de Dados<br>
       &emsp;&emsp;|-->Programação Orientada a Objetos e Estrutura de Dados<br>
-      &emsp;&emsp;|-->Gestão Empresarial e Dinâmica das Organizações<br>
       &emsp;&emsp;|-->Programação para Dispositivos Móveis<br>
+      &emsp;&emsp;|-->Projeto Interdisciplinar Programação Web<br>
       &emsp;&emsp;|-->Projeto Interdisciplinar Aplicativo Móvel<br>
 |-->imagens<br>
 |-->src<br>
@@ -70,23 +73,15 @@ Antes de começar, certifique-se de ter instalado:
 
 ### Clonando o repositório
 ```bash
-git clone https://github.com/2025-2-MCC2/Projeto5.git
-cd ./Projeto5
+git clone https://github.com/2026-1-NCC3/Projeto1
+cd ./Projeto1
 ```
 
 ### Configurando o Back-end
 #### Criando e configurando o aquivo .env (Variáveis de ambiente)
 ````bash
-cd ./src/Server
+cd ./src/Backend
 
-echo "PORT=3000
-MYSQL_HOST=mysql.railway.internal
-MYSQL_USER=root
-MYSQL_DB=railway
-MYSQL_PASSWORD=UUibQPMMyiQgoMWZFbLQQhoXKjnkNSAB
-
-JWT_SECRET=lead2025
-JWT_EXPIRES=1h > .env
 ````
 #### Baixando as dependências e iniciando o servidor
 ````bash
@@ -96,35 +91,35 @@ npm install
 npm run dev
 
 ````
-<a href="./Imagens/Postman">Link para imagens de testes de Rotas com Postman</a> </br>
-
-
 ### Configurando o Front-end
 
 `````bash
 (Em outro terminal)
 
-cd ./src/Client
+cd ./src/Frontend/src
 npm install
 
 # Inicie o servidor de desenvolvimento
 npm run start
 ``````
+### Configurando o Aplicativo Android
+`````bash
 
+`````
 ### Observações
 <ul>
   <li>O front-end estará disponível em http://localhost:5173</li>
   <li>O back-end estará rodando em http://localhost:3000</li>
-  <li>Certifique-se de que as URLs de API estejam corretamente configuradas no front-end para comunicação com o back-end</li>
+  <li></li>
 </ul>
 
 ## 📋 Licença/License
-<a href="https://github.com/2025-2-MCC2/Projeto5">LEAD</a> © 2025 by <a href="https://creativecommons.org">Bruno Rodrigues Da Costa, Enzo Henrique Neves Sena, Harry Zhu, Murilo Angelo Pimentel Braggio, Vitor Paes Kolle  </a> is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>
+<a href="https://github.com/2026-1-NCC3/Projeto1">VitalTech</a> © 2026 by <a href="https://github.com/2026-1-NCC3/Projeto1">Enzo Henrique Neves Sena, Harry Zhu, Murilo Angelo Pimentel Braggio, Vitor Paes Kolle</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>
+<img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .1em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .1em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .1em;">
+
 
 ## 🎓 Referências
 
-<a href="https://liderancasempaticas.com/">Lideranças Empáticas</a> </br>
-<a href="https://sweetalert2.github.io/">Sweet Alert</a> </br>
-<a href="https://storyset.com/">StorySet</a> </br>
+- <a href="https://mayayamamoto.com.br/">Maya Yamamoto RPG</a> </br>
 
 
