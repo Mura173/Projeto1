@@ -16,10 +16,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce aliquet neque lor
 ## 📄 Entregas
 | **Disciplina**              | **Entrega 1**                      | **Entrega 2**                        |
 |-------------------------|--------------------------------|----------------------------------|
-| **Análise Descritiva de Dados**          | [Polinômio de Taylor](https://github.com/2025-2-MCC2/Projeto5/blob/main/Documentos/Entrega%201/C%C3%A1lculo%202/Entrega1-Calculo2.pdf)     | [Máximos e mínimos](https://github.com/2025-2-MCC2/Projeto5/blob/main/Documentos/Entrega%202/C%C3%A1lculo%202/Entrega%202_Calculo_Maximos%20e%20Minimos.docx.pdf) |
-| **Programação Orientada a Objetivos e Estrutura de Dados**      | [Diagrama de entidades tela principal](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%201/Programa%C3%A7%C3%A3o%20Orientada%20a%20Objetos%20e%20Estrutura%20de%20Dados/Diagrama%20VitalTech%20(1).pdf)       | [Deploy](https://github.com/2025-2-MCC2/Projeto5/tree/main/Documentos/Entrega%202/Desenvolvimento%20Web%20Full%20Stack) |
-| **Programação para Dispositivos Móveis**      | [Missão, Visão, Valores](https://github.com/2025-2-MCC2/Projeto5/blob/main/Documentos/Entrega%201/Gest%C3%A3o%20Empresarial%20e%20Din%C3%A2micas%20das%20Organiza%C3%A7%C3%B5es/Entrega%201%20-%20Gest%C3%A3o%20Empresarial.pdf)    | [Fluxograma](https://github.com/2025-2-MCC2/Projeto5/blob/main/Documentos/Entrega%202/Gest%C3%A3o%20Empresarial%20e%20Din%C3%A2micas%20das%20Organiza%C3%A7%C3%B5es/Entrega2_Gestao-Empresarial.pdf)     |
-| **Projeto Interdisciplinar: Aplicativo Móvel**| [Figma](https://github.com/2025-2-MCC2/Projeto5/blob/main/Documentos/Entrega%201/Projeto%20Interdisciplinar%20Programa%C3%A7%C3%A3o%20Web/Link%20para%20o%20prot%C3%B3tipo%20no%20Figma%20L.E.A.D.pdf)                     | [Projeto de Extensão](https://github.com/2025-2-MCC2/Projeto5/blob/main/Documentos/Entrega%202/Projeto%20Interdisciplinar%20Programa%C3%A7%C3%A3o%20Web/Documento%20-%20Projeto%20de%20Extens%C3%A3o%20L.E.A.D-%20COM%20Empresa.pdf)         |
+| **Análise Descritiva de Dados**          | [Dados, Variáveis e Interpretações](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%201/An%C3%A1lise%20Descritiva%20de%20Dados/Entrega%201%20-%20An%C3%A1lise%20Descritiva%20de%20Dados.pdf)     | [------](https://github.com/2026-1-NCC3/Projeto1/tree/main/Documentos/Entrega%202/An%C3%A1lise%20Descritiva%20de%20Dados) |
+| **Programação Orientada a Objetivos e Estrutura de Dados**      | [Diagrama de entidades tela principal](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%201/Programa%C3%A7%C3%A3o%20Orientada%20a%20Objetos%20e%20Estrutura%20de%20Dados/Diagrama%20VitalTech%20(1).pdf)       | [------](https://github.com/2026-1-NCC3/Projeto1/tree/main/Documentos/Entrega%202/Programa%C3%A7%C3%A3o%20Orientada%20a%20Objetos%20e%20Estrutura%20de%20Dados) |
+| **Programação para Dispositivos Móveis**      | [Aplicação Android](https://github.com/2026-1-NCC3/Projeto1/tree/main/src/Android)    | [------](https://github.com/2026-1-NCC3/Projeto1/tree/main/Documentos/Entrega%202/Programa%C3%A7%C3%A3o%20para%20Dispositivos%20M%C3%B3veis)     |
+| **Projeto Interdisciplinar: Aplicativo Móvel**| [Apk](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%201/Projeto%20Interdisciplinar%20Aplicativo%20M%C3%B3vel/vitaltech_maya.apk)                     | [------](https://github.com/2026-1-NCC3/Projeto1/tree/main/Documentos/Entrega%202/Projeto%20Interdisciplinar%20Aplicativo%20M%C3%B3vel)         |
 
 
 </br>
@@ -30,21 +30,22 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce aliquet neque lor
 |<br>
 |-->documentos<br>
   &emsp;|-->Entrega 1<br>
-      &emsp;&emsp;|-->Cálculo 2<br>
-      &emsp;&emsp;|-->Desenvolvimento Web Full Stack<br>
-      &emsp;&emsp;|-->Gestão Empresarial e Dinâmica das Organizações<br>
+      &emsp;&emsp;|-->Análise Descritiva de Dados<br>
+      &emsp;&emsp;|-->Programação Orientada a Objetos e Estrutura de Dados<br>
+      &emsp;&emsp;|-->Programação para Dispositivos Móveis<br>
       &emsp;&emsp;|-->Projeto Interdisciplinar Programação Web<br>
-      &emsp;&emsp;|-->Projetos em Banco de Dados<br>
+      &emsp;&emsp;|-->Projeto Interdisciplinar Aplicativo Móvel<br>
   &emsp;|-->Entrega 2<br>
-      &emsp;&emsp;|-->Cálculo 2<br>
-      &emsp;&emsp;|-->Desenvolvimento Web Full Stack<br>
+      &emsp;&emsp;|-->Análise Descritiva de Dados<br>
+      &emsp;&emsp;|-->Programação Orientada a Objetos e Estrutura de Dados<br>
       &emsp;&emsp;|-->Gestão Empresarial e Dinâmica das Organizações<br>
-      &emsp;&emsp;|-->Projeto Interdisciplinar Programação Web<br>
-      &emsp;&emsp;|-->Projetos em Banco de Dados<br>
+      &emsp;&emsp;|-->Programação para Dispositivos Móveis<br>
+      &emsp;&emsp;|-->Projeto Interdisciplinar Aplicativo Móvel<br>
 |-->imagens<br>
 |-->src<br>
-  &emsp;|-->Client<br>
-  &emsp;|-->Server<br>
+  &emsp;|-->Android<br>
+  &emsp;|-->Backend<br>
+  &emsp;|-->Web<br>
 |readme.md<br>
 
 ## 🛠 Instalação
