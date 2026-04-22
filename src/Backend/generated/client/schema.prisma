@@ -7,33 +7,141 @@ datasource db {
   provider = "postgresql"
 }
 
-model administradores {
-  id_administrador   Int      @id
-  hash_palavra_chave String   @db.VarChar(200)
-  usuarios           usuarios @relation(fields: [id_administrador], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_administrador")
-}
-
 model pacientes {
-  id_paciente     Int      @id
+  id_paciente     Int           @id
   is_ativo        Boolean
   primeiro_acesso Boolean
-  usuarios        usuarios @relation(fields: [id_paciente], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_paciente")
+  usuarios        usuarios      @relation(fields: [id_paciente], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_paciente")
+  prontuarios     prontuarios[]
 }
 
 model profissionais {
-  id_profissional Int      @id
-  crm             String   @db.VarChar(10)
-  usuarios        usuarios @relation(fields: [id_profissional], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_profissional")
+  id_profissional    Int      @id
+  crm                String   @db.VarChar(10)
+  hash_palavra_chave String   @db.VarChar(200)
+  usuarios           usuarios @relation(fields: [id_profissional], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_profissional")
 }
 
 model usuarios {
-  id_usuario      Int              @id @default(autoincrement())
-  nome            String           @db.VarChar(100)
-  email           String           @unique @db.VarChar(256)
-  hash_senha      String           @db.VarChar(200)
-  data_nascimento DateTime         @db.Date
-  telefone        String           @db.VarChar(15)
-  administradores administradores?
+  id_usuario      Int            @id @default(autoincrement())
+  nome            String         @db.VarChar(100)
+  email           String         @unique @db.VarChar(256)
+  hash_senha      String         @db.VarChar(200)
+  data_nascimento DateTime       @db.Date
+  telefone        String         @db.VarChar(15)
   pacientes       pacientes?
   profissionais   profissionais?
+}
+
+model avaliacoes {
+  id_avaliacao           Int                      @id @default(autoincrement())
+  avaliacao              String                   @db.VarChar(300)
+  data_avaliacao         DateTime                 @db.Date
+  prontuarios_avaliacoes prontuarios_avaliacoes[]
+}
+
+model exercicios {
+  id_exercicio           Int                      @id @default(autoincrement())
+  titulo                 String                   @db.VarChar(50)
+  descricao              String                   @db.VarChar(200)
+  orientacoes            String                   @db.VarChar(300)
+  exericios_tags         exericios_tags[]
+  imagens_exercicios     imagens_exercicios[]
+  prontuarios_exercicios prontuarios_exercicios[]
+}
+
+model exericios_tags {
+  id_exercicio_tag Int        @id @default(autoincrement())
+  id_tag           Int
+  id_exercicio     Int
+  exercicios       exercicios @relation(fields: [id_exercicio], references: [id_exercicio], onDelete: Cascade, onUpdate: NoAction, map: "fk_exercicio_tag")
+  tags             tags       @relation(fields: [id_tag], references: [id_tag], onDelete: Cascade, onUpdate: NoAction, map: "fk_tag_exercicio")
+}
+
+model imagens_exercicios {
+  id_imagem    Int        @id @default(autoincrement())
+  link_imagem  String     @db.VarChar(2048)
+  id_exercicio Int
+  exercicios   exercicios @relation(fields: [id_exercicio], references: [id_exercicio], onDelete: Cascade, onUpdate: NoAction, map: "fk_exercicio_imagem")
+}
+
+model orientacoes {
+  id_orientacao   Int         @id @default(autoincrement())
+  orientacao      String      @db.VarChar(300)
+  data_orientacao DateTime    @db.Date
+  id_prontuario   Int
+  prontuarios     prontuarios @relation(fields: [id_prontuario], references: [id_prontuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_prontuario_orientacao")
+}
+
+model prontuarios {
+  id_prontuario          Int                      @id @default(autoincrement())
+  data_inicio_tratamento DateTime                 @db.Date
+  classificacao          classificacao_usuario
+  id_paciente            Int
+  orientacoes            orientacoes[]
+  pacientes              pacientes                @relation(fields: [id_paciente], references: [id_paciente], onDelete: Cascade, onUpdate: NoAction, map: "fk_paciente_prontuario")
+  prontuarios_avaliacoes prontuarios_avaliacoes[]
+  prontuarios_exercicios prontuarios_exercicios[]
+  prontuarios_queixas    prontuarios_queixas[]
+  prontuarios_sinais     prontuarios_sinais[]
+}
+
+model prontuarios_avaliacoes {
+  id_prontuario_avaliacao Int         @id @default(autoincrement())
+  id_avaliacao            Int
+  id_prontuario           Int
+  avaliacoes              avaliacoes  @relation(fields: [id_avaliacao], references: [id_avaliacao], onDelete: NoAction, onUpdate: NoAction, map: "fk_avaliacao_prontuario")
+  prontuarios             prontuarios @relation(fields: [id_prontuario], references: [id_prontuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_prontuario_avaliacao")
+}
+
+model prontuarios_exercicios {
+  id_prontuario_exercicio Int         @id @default(autoincrement())
+  id_exercicio            Int
+  id_prontuario           Int
+  exercicios              exercicios  @relation(fields: [id_exercicio], references: [id_exercicio], onDelete: Cascade, onUpdate: NoAction, map: "fk_exercicio_prontuario")
+  prontuarios             prontuarios @relation(fields: [id_prontuario], references: [id_prontuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_prontuario_exercicio")
+}
+
+model prontuarios_queixas {
+  id_prontuario_queixa Int         @id @default(autoincrement())
+  id_prontuario        Int
+  id_queixa            Int
+  prontuarios          prontuarios @relation(fields: [id_prontuario], references: [id_prontuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_prontuario_queixa")
+  queixas              queixas     @relation(fields: [id_queixa], references: [id_queixa], onDelete: NoAction, onUpdate: NoAction, map: "fk_queixa_prontuario")
+}
+
+model prontuarios_sinais {
+  id_prontuario_sinal Int         @id @default(autoincrement())
+  id_prontuario       Int
+  id_sinal            Int
+  prontuarios         prontuarios @relation(fields: [id_prontuario], references: [id_prontuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_prontuario_sinal")
+  sinais              sinais      @relation(fields: [id_sinal], references: [id_sinal], onDelete: Cascade, onUpdate: NoAction, map: "fk_sinal_prontuario")
+}
+
+model queixas {
+  id_queixa           Int                   @id @default(autoincrement())
+  queixa              String                @db.VarChar(100)
+  data_queixa         DateTime              @db.Date
+  prontuarios_queixas prontuarios_queixas[]
+}
+
+model sinais {
+  id_sinal           Int                  @id @default(autoincrement())
+  sinal              String               @db.VarChar(50)
+  escala             Int
+  prontuarios_sinais prontuarios_sinais[]
+}
+
+model tags {
+  id_tag         Int              @id @default(autoincrement())
+  tag            String           @db.VarChar(45)
+  exericios_tags exericios_tags[]
+}
+
+enum classificacao_usuario {
+  Muito_Grave @map("Muito Grave")
+  Grave
+  Moderado
+  Leve
+  Muito_Leve  @map("Muito Leve")
 }

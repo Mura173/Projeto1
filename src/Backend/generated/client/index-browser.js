@@ -120,11 +120,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.AdministradoresScalarFieldEnum = {
-  id_administrador: 'id_administrador',
-  hash_palavra_chave: 'hash_palavra_chave'
-};
-
 exports.Prisma.PacientesScalarFieldEnum = {
   id_paciente: 'id_paciente',
   is_ativo: 'is_ativo',
@@ -133,7 +128,8 @@ exports.Prisma.PacientesScalarFieldEnum = {
 
 exports.Prisma.ProfissionaisScalarFieldEnum = {
   id_profissional: 'id_profissional',
-  crm: 'crm'
+  crm: 'crm',
+  hash_palavra_chave: 'hash_palavra_chave'
 };
 
 exports.Prisma.UsuariosScalarFieldEnum = {
@@ -145,6 +141,86 @@ exports.Prisma.UsuariosScalarFieldEnum = {
   telefone: 'telefone'
 };
 
+exports.Prisma.AvaliacoesScalarFieldEnum = {
+  id_avaliacao: 'id_avaliacao',
+  avaliacao: 'avaliacao',
+  data_avaliacao: 'data_avaliacao'
+};
+
+exports.Prisma.ExerciciosScalarFieldEnum = {
+  id_exercicio: 'id_exercicio',
+  titulo: 'titulo',
+  descricao: 'descricao',
+  orientacoes: 'orientacoes'
+};
+
+exports.Prisma.Exericios_tagsScalarFieldEnum = {
+  id_exercicio_tag: 'id_exercicio_tag',
+  id_tag: 'id_tag',
+  id_exercicio: 'id_exercicio'
+};
+
+exports.Prisma.Imagens_exerciciosScalarFieldEnum = {
+  id_imagem: 'id_imagem',
+  link_imagem: 'link_imagem',
+  id_exercicio: 'id_exercicio'
+};
+
+exports.Prisma.OrientacoesScalarFieldEnum = {
+  id_orientacao: 'id_orientacao',
+  orientacao: 'orientacao',
+  data_orientacao: 'data_orientacao',
+  id_prontuario: 'id_prontuario'
+};
+
+exports.Prisma.ProntuariosScalarFieldEnum = {
+  id_prontuario: 'id_prontuario',
+  data_inicio_tratamento: 'data_inicio_tratamento',
+  classificacao: 'classificacao',
+  id_paciente: 'id_paciente'
+};
+
+exports.Prisma.Prontuarios_avaliacoesScalarFieldEnum = {
+  id_prontuario_avaliacao: 'id_prontuario_avaliacao',
+  id_avaliacao: 'id_avaliacao',
+  id_prontuario: 'id_prontuario'
+};
+
+exports.Prisma.Prontuarios_exerciciosScalarFieldEnum = {
+  id_prontuario_exercicio: 'id_prontuario_exercicio',
+  id_exercicio: 'id_exercicio',
+  id_prontuario: 'id_prontuario'
+};
+
+exports.Prisma.Prontuarios_queixasScalarFieldEnum = {
+  id_prontuario_queixa: 'id_prontuario_queixa',
+  id_prontuario: 'id_prontuario',
+  id_queixa: 'id_queixa'
+};
+
+exports.Prisma.Prontuarios_sinaisScalarFieldEnum = {
+  id_prontuario_sinal: 'id_prontuario_sinal',
+  id_prontuario: 'id_prontuario',
+  id_sinal: 'id_sinal'
+};
+
+exports.Prisma.QueixasScalarFieldEnum = {
+  id_queixa: 'id_queixa',
+  queixa: 'queixa',
+  data_queixa: 'data_queixa'
+};
+
+exports.Prisma.SinaisScalarFieldEnum = {
+  id_sinal: 'id_sinal',
+  sinal: 'sinal',
+  escala: 'escala'
+};
+
+exports.Prisma.TagsScalarFieldEnum = {
+  id_tag: 'id_tag',
+  tag: 'tag'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -154,13 +230,31 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-
+exports.classificacao_usuario = exports.$Enums.classificacao_usuario = {
+  Muito_Grave: 'Muito_Grave',
+  Grave: 'Grave',
+  Moderado: 'Moderado',
+  Leve: 'Leve',
+  Muito_Leve: 'Muito_Leve'
+};
 
 exports.Prisma.ModelName = {
-  administradores: 'administradores',
   pacientes: 'pacientes',
   profissionais: 'profissionais',
-  usuarios: 'usuarios'
+  usuarios: 'usuarios',
+  avaliacoes: 'avaliacoes',
+  exercicios: 'exercicios',
+  exericios_tags: 'exericios_tags',
+  imagens_exercicios: 'imagens_exercicios',
+  orientacoes: 'orientacoes',
+  prontuarios: 'prontuarios',
+  prontuarios_avaliacoes: 'prontuarios_avaliacoes',
+  prontuarios_exercicios: 'prontuarios_exercicios',
+  prontuarios_queixas: 'prontuarios_queixas',
+  prontuarios_sinais: 'prontuarios_sinais',
+  queixas: 'queixas',
+  sinais: 'sinais',
+  tags: 'tags'
 };
 
 /**

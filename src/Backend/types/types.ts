@@ -1,5 +1,5 @@
 
-export type NovoPaciente = {
+export type TPaciente = {
     id_paciente: number,
     nome: string,
     email: string,

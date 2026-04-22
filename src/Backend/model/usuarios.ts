@@ -1,8 +1,8 @@
 import {prisma} from '../libs/prisma.ts';
-import type { NovoPaciente } from '../types/types.ts';
+import type { TPaciente } from '../types/types.ts';
 import { ERROR_NOT_FOUND } from '../util/messages.ts';
 
-export async function CadastrarPaciente(data : NovoPaciente) {
+export async function CadastrarPaciente(data : TPaciente) {
     try {
         let usuario = await prisma.usuarios.create({
             data: {
@@ -85,7 +85,7 @@ export async function LoginUsuario(email:string) {
     }
 }
 
-export async function buscarPaciente(id_paciente: number) : Promise< NovoPaciente | false> {
+export async function buscarPaciente(id_paciente: number) : Promise< TPaciente | false> {
     try {
         let paciente = await prisma.pacientes.findUnique({
             where: {

@@ -1,9 +1,9 @@
 import { CriptografarSenha, ValidarSenha } from "../libs/bcrypt.ts";
 import { buscarPaciente, CadastrarPaciente, LoginUsuario, ValidarEmail } from "../model/usuarios.ts";
-import type { NovoPaciente } from "../types/types.ts";
+import type { TPaciente } from "../types/types.ts";
 import { ERROR_INVALID_CREDENTIALS, ERROR_NOT_FOUND, ERROR_REQUIRED_FIELDS, ERROR_USED_EMAIL, WELL_SUCCEDED_LOGIN } from "../util/messages.ts";
 
-export async function ValidarCadastroPaciente(data: NovoPaciente) {
+export async function ValidarCadastroPaciente(data: TPaciente) {
     if (
         !data.nome || data.nome == undefined || data.nome.length > 100 ||
         !data.email || data.email == undefined || data.email.length > 256 ||
