@@ -1,8 +1,8 @@
 import {prisma} from '../libs/prisma.ts';
-import type { NovoPaciente } from '../types/types.ts';
+import type { TPaciente } from '../types/types.ts';
 import { ERROR_NOT_FOUND } from '../util/messages.ts';
 
-export async function CadastrarPaciente(data : NovoPaciente) {
+export async function CadastrarPaciente(data : TPaciente) {
     try {
         let usuario = await prisma.usuarios.create({
             data: {
@@ -23,7 +23,7 @@ export async function CadastrarPaciente(data : NovoPaciente) {
                 }
             })
             return {
-               id_paciente: paciente.id_paciente,
+                id_paciente: paciente.id_paciente,
                 nome: usuario.nome,
                 email: usuario.email,
                 hash_senha: usuario.hash_senha,
@@ -68,7 +68,11 @@ export async function LoginUsuario(email:string) {
         })
 
         if (findUser) {
-            return findUser.hash_senha
+
+            return {
+                hash_senha: findUser.hash_senha,
+                id_usuario: findUser.id_usuario
+            }
         }
         else{
             return false
@@ -78,5 +82,34 @@ export async function LoginUsuario(email:string) {
     } catch (error) {
         console.log(error)
         return error
+    }
+}
+
+export async function buscarPaciente(id_paciente: number) : Promise< TPaciente | false> {
+    try {
+        let paciente = await prisma.pacientes.findUnique({
+            where: {
+                id_paciente: id_paciente
+            },
+            include: {
+                usuarios: true
+            }
+        })
+
+        if (paciente) {
+            return {
+                id_paciente: paciente.id_paciente,
+                nome: paciente.usuarios.nome,
+                email: paciente.usuarios.email,
+                hash_senha: paciente.usuarios.hash_senha,
+                data_nascimento: paciente.usuarios.data_nascimento,
+                telefone: paciente.usuarios.telefone
+            }
+        } else {
+            return false
+        }
+    } catch (error) {
+        console.log(error)
+        return false
     }
 }
