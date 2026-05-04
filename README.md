@@ -51,16 +51,12 @@ A VitalTech é um projeto feito por estudantes da FECAP de Ciências da Computa�
   &emsp;|-->Web<br>
 |readme.md<br>
 
-## 🛠 Instalação
+## 🛠 Link para acessar o Site
 
-<b>Windows:</b>
+https://mayayamamoto-vitaltech.vercel.app/
 
-Não há instalação! Apenas executável!
-
-<b>HTML:</b>
-
-Não há instalação!
-Encontre o index.html na pasta executáveis e execute-o como uma página WEB (através de algum browser).
+Login: maya@vitaltech.com <br>
+Senha: senha123
 
 ## 💻 Configuração para Desenvolvimento
 ### Pré-requisitos
