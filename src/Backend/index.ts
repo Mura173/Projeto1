@@ -1,5 +1,7 @@
 import express from "express";
 import {
+  BuscarPaciente,
+  ListarPacientes,
   ValidarCadastroPaciente,
   ValidarLoginUsuario,
 } from "./controller/controller_usuarios.ts";
@@ -38,6 +40,22 @@ app.post("/login", async (req, res) => {
   res.json(login);
 });
 
+
+app.get("/paciente/:id", async (req, res) => {
+  const id = Number(req.params.id)
+
+  let paciente = await BuscarPaciente(id)
+
+  res.status(paciente.status);
+  res.json(paciente);
+});
+
+app.get("/pacientes", async (_req, res) => {
+  let pacientes = await ListarPacientes()
+
+  res.status(pacientes.status);
+  res.json(pacientes);
+});
 
 /****************Exercícios****************** */
 app.post("/cadastrarExercicio", async (req, res) => {

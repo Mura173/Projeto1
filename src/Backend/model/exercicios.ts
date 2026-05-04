@@ -37,7 +37,7 @@ export async function cadastrarExercicio(data: TExercicio) {
           })
         }
       }))
-
+      
       await Promise.all(data.imagens.map(async (imagem) => {
         await prisma.imagens_exercicios.create({
           data: {
