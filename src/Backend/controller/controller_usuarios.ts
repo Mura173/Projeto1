@@ -1,5 +1,5 @@
 import { CriptografarSenha, ValidarSenha } from "../libs/bcrypt.ts";
-import { buscarPaciente, CadastrarPaciente, LoginUsuario, ValidarEmail } from "../model/usuarios.ts";
+import { buscarPaciente, CadastrarPaciente, listarPacientes, LoginUsuario, ValidarEmail } from "../model/usuarios.ts";
 import type { TPaciente } from "../types/types.ts";
 import { ERROR_INVALID_CREDENTIALS, ERROR_NOT_FOUND, ERROR_REQUIRED_FIELDS, ERROR_USED_EMAIL, WELL_SUCCEDED_LOGIN } from "../util/messages.ts";
 
@@ -83,5 +83,21 @@ export async function BuscarPaciente(id_paciente: number) {
             data: ERROR_NOT_FOUND,
             status: ERROR_NOT_FOUND.status_code
         }    
+    }
+}
+
+export async function ListarPacientes() {
+    let pacientes = await listarPacientes()
+
+    if (pacientes) {
+        return {
+            data: pacientes,
+            status: 200
+        }
+    } else {
+        return {
+            data: ERROR_NOT_FOUND,
+            status: ERROR_NOT_FOUND.status_code
+        }
     }
 }

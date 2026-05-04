@@ -93,7 +93,31 @@ export async function buscarPaciente(id_paciente: number): Promise<TPaciente | f
             },
             include: {
                 usuarios: true,
-                prontuarios: true
+                prontuarios: {
+                    include: {
+                        orientacoes: true,
+                        prontuarios_exercicios:{
+                            include: {
+                                exercicios: true
+                            }
+                        },
+                        prontuarios_avaliacoes:{
+                            include: {
+                                avaliacoes: true
+                            }
+                        },
+                        prontuarios_sinais:{
+                            include: {
+                                sinais: true
+                            }
+                        },
+                        prontuarios_queixas: {
+                            include: {
+                                queixas: true
+                            }
+                        }
+                    }
+                }
             }
         })
 
@@ -111,6 +135,47 @@ export async function buscarPaciente(id_paciente: number): Promise<TPaciente | f
         } else {
             return false
         }
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+}
+
+export async function listarPacientes() {
+    try {
+        const pacientes = await prisma.pacientes.findMany({
+            include: {
+                usuarios: true,
+                prontuarios: {
+                    include: {
+                        orientacoes: true,
+                        prontuarios_exercicios:{
+                            include: {
+                                exercicios: true
+                            }
+                        },
+                        prontuarios_avaliacoes:{
+                            include: {
+                                avaliacoes: true
+                            }
+                        },
+                        prontuarios_sinais:{
+                            include: {
+                                sinais: true
+                            }
+                        },
+                        prontuarios_queixas: {
+                            include: {
+                                queixas: true
+                            }
+                        }
+                    }
+                }
+            }
+        })
+
+        return pacientes
+
     } catch (error) {
         console.log(error)
         return false

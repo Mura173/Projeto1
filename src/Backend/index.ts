@@ -1,6 +1,7 @@
 import express from "express";
 import {
   BuscarPaciente,
+  ListarPacientes,
   ValidarCadastroPaciente,
   ValidarLoginUsuario,
 } from "./controller/controller_usuarios.ts";
@@ -47,6 +48,13 @@ app.get("/paciente/:id", async (req, res) => {
 
   res.status(paciente.status);
   res.json(paciente);
+});
+
+app.get("/pacientes", async (_req, res) => {
+  let pacientes = await ListarPacientes()
+
+  res.status(pacientes.status);
+  res.json(pacientes);
 });
 
 /****************Exercícios****************** */
