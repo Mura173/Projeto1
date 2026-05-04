@@ -5,6 +5,7 @@ export type TPaciente = {
   hash_senha: string;
   data_nascimento: Date;
   telefone: string;
+  prontuario?: {};
 };
 
 export type TExercicio = {

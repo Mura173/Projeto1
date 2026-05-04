@@ -62,3 +62,26 @@ export async function ValidarLoginUsuario(email: string, senha: string) {
         return ERROR_NOT_FOUND
     }
 }
+
+export async function BuscarPaciente(id_paciente: number) {
+
+    if (!id_paciente || isNaN(id_paciente) || id_paciente < 1) {
+        return {
+            data: ERROR_REQUIRED_FIELDS,
+            status: ERROR_REQUIRED_FIELDS.status_code
+        }
+    }
+
+    let paciente = await buscarPaciente(id_paciente)
+    if (paciente) {
+        return {
+            data: paciente,
+            status: 200
+        }
+    } else {
+        return {
+            data: ERROR_NOT_FOUND,
+            status: ERROR_NOT_FOUND.status_code
+        }    
+    }
+}
