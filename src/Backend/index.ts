@@ -6,6 +6,7 @@ import {
   ValidarLoginUsuario,
 } from "./controller/controller_usuarios.ts";
 import { validarCadastroExercicio, listarExercicios, removerExercicio } from "./controller/controller_exercicios.ts";
+import { validarOrientacao } from "./controller/controller_prontuarios.ts";
 
 const app = express();
 app.use(express.json());
@@ -88,6 +89,16 @@ app.delete("/exercicio/:id", async (req, res) => {
   }
 });
 
+/*******************Prontuarios******************* */
+app.post("/adicionarOrientacao/:id", async (req, res) => {
+  const id_paciente = Number(req.params.id);
+  const { orientacao } = req.body;
+
+  let novaOrientacao = await validarOrientacao(id_paciente, orientacao);
+
+  res.status(novaOrientacao.status);
+  res.json(novaOrientacao);
+});
 
 app.listen(5000, () => {
   console.log("Servidor rodando na porta 5000");

@@ -27,3 +27,8 @@ export type TImagem = {
   link_imagem: string;
   id_exercicio: number;
 };
+
+export type TNovaOrientacao = {
+  orientacao: string;
+  data_orientacao: Date;
+};

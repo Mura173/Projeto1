@@ -210,3 +210,30 @@ export async function ValidarEmail(email: string) {
             return false
         }
     }
+
+export async function buscarProntuario(id_paciente: number) {
+    try {
+        let paciente = await prisma.pacientes.findUnique({
+            where: {
+                id_paciente: id_paciente
+            },
+            include: {
+                prontuarios: {
+                    include: {
+                        orientacoes: true,
+                    }
+                }
+            }
+        })
+
+        if (!paciente) {
+            return false
+        }
+
+        return paciente.prontuarios
+        
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+}
