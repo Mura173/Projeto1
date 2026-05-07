@@ -1,17 +1,17 @@
-import {prisma} from '../libs/prisma.ts';
+import { prisma } from '../libs/prisma.ts';
 import type { TPaciente } from '../types/types.ts';
 import { ERROR_NOT_FOUND } from '../util/messages.ts';
 
-export async function CadastrarPaciente(data : TPaciente) {
+export async function CadastrarPaciente(data: TPaciente) {
     try {
         let usuario = await prisma.usuarios.create({
             data: {
-            nome: data.nome,
-            email: data.email,
-            hash_senha: data.hash_senha,
-            data_nascimento: data.data_nascimento,
-            telefone: data.telefone
-        }
+                nome: data.nome,
+                email: data.email,
+                hash_senha: data.hash_senha,
+                data_nascimento: data.data_nascimento,
+                telefone: data.telefone
+            }
         })
 
         if (usuario) {
@@ -39,7 +39,7 @@ export async function CadastrarPaciente(data : TPaciente) {
     }
 }
 
-export async function ValidarEmail(email:string) {
+export async function ValidarEmail(email: string) {
     try {
         let testEmail = await prisma.usuarios.findUnique({
             where: {
@@ -59,7 +59,7 @@ export async function ValidarEmail(email:string) {
     }
 }
 
-export async function LoginUsuario(email:string) {
+export async function LoginUsuario(email: string) {
     try {
         let findUser = await prisma.usuarios.findUnique({
             where: {
@@ -74,7 +74,7 @@ export async function LoginUsuario(email:string) {
                 id_usuario: findUser.id_usuario
             }
         }
-        else{
+        else {
             return false
         }
 
@@ -85,29 +85,97 @@ export async function LoginUsuario(email:string) {
     }
 }
 
-export async function buscarPaciente(id_paciente: number) : Promise< TPaciente | false> {
+export async function buscarPaciente(id_paciente: number): Promise<TPaciente | false> {
     try {
         let paciente = await prisma.pacientes.findUnique({
             where: {
                 id_paciente: id_paciente
             },
             include: {
-                usuarios: true
+                usuarios: true,
+                prontuarios: {
+                    include: {
+                        orientacoes: true,
+                        prontuarios_exercicios:{
+                            include: {
+                                exercicios: true
+                            }
+                        },
+                        prontuarios_avaliacoes:{
+                            include: {
+                                avaliacoes: true
+                            }
+                        },
+                        prontuarios_sinais:{
+                            include: {
+                                sinais: true
+                            }
+                        },
+                        prontuarios_queixas: {
+                            include: {
+                                queixas: true
+                            }
+                        }
+                    }
+                }
             }
         })
 
         if (paciente) {
+            
             return {
                 id_paciente: paciente.id_paciente,
                 nome: paciente.usuarios.nome,
                 email: paciente.usuarios.email,
                 hash_senha: paciente.usuarios.hash_senha,
                 data_nascimento: paciente.usuarios.data_nascimento,
-                telefone: paciente.usuarios.telefone
+                telefone: paciente.usuarios.telefone,
+                prontuario: paciente.prontuarios,
             }
         } else {
             return false
         }
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+}
+
+export async function listarPacientes() {
+    try {
+        const pacientes = await prisma.pacientes.findMany({
+            include: {
+                usuarios: true,
+                prontuarios: {
+                    include: {
+                        orientacoes: true,
+                        prontuarios_exercicios:{
+                            include: {
+                                exercicios: true
+                            }
+                        },
+                        prontuarios_avaliacoes:{
+                            include: {
+                                avaliacoes: true
+                            }
+                        },
+                        prontuarios_sinais:{
+                            include: {
+                                sinais: true
+                            }
+                        },
+                        prontuarios_queixas: {
+                            include: {
+                                queixas: true
+                            }
+                        }
+                    }
+                }
+            }
+        })
+
+        return pacientes
+
     } catch (error) {
         console.log(error)
         return false
