@@ -53,15 +53,12 @@ public class ExercicioAdapter extends RecyclerView.Adapter<ExercicioAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         Exercicios ex = lista.get(position);
 
-        holder.txtNome.setText(ex.getNomeExercicio());
-        holder.txtFrequencia.setText(ex.getFrequencia());
+        holder.txtNome.setText(ex.getTitulo());
         holder.imgExercicio.setImageResource(ex.getImgExercicio());
 
         // Quando clicar, vai para outra tela, pegando somente o nome do exercicio
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, DetalheActivity.class);
-
-            intent.putExtra("nome", ex.getNomeExercicio());
 
             context.startActivity(intent);
         });

@@ -2,6 +2,7 @@ package com.vitaltech.mayayamamoto.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -12,10 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vitaltech.mayayamamoto.adapter.ExercicioAdapter;
 import com.vitaltech.mayayamamoto.model.Exercicios;
 import com.vitaltech.mayayamamoto.R;
+import com.vitaltech.mayayamamoto.model.ExerciseResponse;
+import com.vitaltech.mayayamamoto.network.ApiService;
+import com.vitaltech.mayayamamoto.network.RetrofitClient;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class TrilhaExerciciosActivity extends AppCompatActivity {
+    RecyclerView recycler;
     TextView txtOla;
     Intent intent;
 
@@ -24,14 +33,9 @@ public class TrilhaExerciciosActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_trilha_exercicios);
 
-        RecyclerView recycler = findViewById(R.id.recyclerExercicios);
+        recycler = findViewById(R.id.recyclerExercicios);
 
         ArrayList<Exercicios> lista = new ArrayList<>();
-
-        // Adicionando objetos na lista
-        lista.add(new Exercicios("Postura em Pé", "desc", "2x ao dia", R.drawable.postura_em_pe));
-        lista.add(new Exercicios("Alongamento", "desc", "1x ao dia", R.drawable.alongamento));
-        lista.add(new Exercicios("Respiração", "desc", "3x ao dia", R.drawable.respiracao));
 
         ExercicioAdapter adapter = new ExercicioAdapter(this, lista);
 
@@ -40,9 +44,28 @@ public class TrilhaExerciciosActivity extends AppCompatActivity {
 
         txtOla = findViewById(R.id.txtOla);
 
-        /* String nomeRecebido = getIntent().getStringExtra("nome");
+        buscarExercicios();
 
-        txtOla.setText("Olá, " + nomeRecebido); */
+    }
 
+    private void buscarExercicios(){
+        ApiService api = RetrofitClient.getRetrofit().create(ApiService.class);
+
+        api.listarExercicios().enqueue(new Callback<ExerciseResponse>() {
+            @Override
+            public void onResponse(Call<ExerciseResponse> call, Response<ExerciseResponse> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                    ArrayList<Exercicios> lista = new ArrayList<>(response.body().getData());
+                    ExercicioAdapter adapter = new ExercicioAdapter(TrilhaExerciciosActivity.this, lista);
+
+                    recycler.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ExerciseResponse> call, Throwable t) {
+                Log.e("API", t.getMessage());
+            }
+        });
     }
 }

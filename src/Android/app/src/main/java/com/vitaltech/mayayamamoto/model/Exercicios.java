@@ -1,31 +1,32 @@
 package com.vitaltech.mayayamamoto.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Exercicios {
-    private String nomeExercicio;
+
+    private int id_exercicio;
+    private String titulo;
     private String descricao;
-    private String frequencia;
+    private String orientacoes;
     private int imgExercicio;
 
-    public String getNomeExercicio(){
-        return nomeExercicio;
+    public int getId_exercicio(){
+        return id_exercicio;
+    }
+
+    public String getTitulo(){
+        return titulo;
     }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public String getFrequencia(){
-        return frequencia;
+    public String getOrientacoes(){
+        return orientacoes;
     }
 
     public int getImgExercicio(){
         return imgExercicio;
-    }
-
-    public Exercicios(String nomeExercicio, String descricao, String frequencia, int imgExercicio){
-        this.nomeExercicio = nomeExercicio;
-        this.descricao = descricao;
-        this.frequencia = frequencia;
-        this.imgExercicio = imgExercicio;
     }
 }
