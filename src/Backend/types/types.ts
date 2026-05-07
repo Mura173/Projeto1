@@ -27,3 +27,24 @@ export type TImagem = {
   link_imagem: string;
   id_exercicio: number;
 };
+
+export type TNovaOrientacao = {
+  orientacao: string;
+  data_orientacao: Date;
+};
+
+
+export type TNovaQueixa = {
+  queixa: string;
+  data_queixa: Date;
+};
+
+export type TNovoSinal = {
+  sinal: string;
+  escala: number;
+};
+
+export type TNovaAvaliacao = {
+  avaliacao: string;
+  data_avaliacao: Date;
+};

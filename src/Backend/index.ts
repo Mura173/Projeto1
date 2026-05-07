@@ -6,6 +6,7 @@ import {
   ValidarLoginUsuario,
 } from "./controller/controller_usuarios.ts";
 import { validarCadastroExercicio, listarExercicios, removerExercicio } from "./controller/controller_exercicios.ts";
+import { validarAvaliacao, validarOrientacao, validarQueixa, validarSinal } from "./controller/controller_prontuarios.ts";
 
 const app = express();
 app.use(express.json());
@@ -88,6 +89,46 @@ app.delete("/exercicio/:id", async (req, res) => {
   }
 });
 
+/*******************Prontuarios******************* */
+app.post("/adicionarOrientacao/:id", async (req, res) => {
+  const id_paciente = Number(req.params.id);
+  const { orientacao } = req.body;
+
+  let novaOrientacao = await validarOrientacao(id_paciente, orientacao);
+
+  res.status(novaOrientacao.status);
+  res.json(novaOrientacao);
+});
+
+app.post("/adicionarQueixa/:id", async (req, res) => {
+  const id_paciente = Number(req.params.id);
+  const { queixa } = req.body;
+
+  let novaQueixa = await validarQueixa(id_paciente, queixa);
+
+  res.status(novaQueixa.status);
+  res.json(novaQueixa);
+});
+
+app.post("/adicionarSinal/:id", async (req, res) => {
+  const id_paciente = Number(req.params.id);
+  const { sinal, escala } = req.body;
+
+  let novoSinal = await validarSinal(id_paciente, sinal, escala);
+
+  res.status(novoSinal.status);
+  res.json(novoSinal);
+});
+
+app.post("/adicionarAvaliacao/:id", async (req, res) => {
+  const id_paciente = Number(req.params.id);
+  const { avaliacao } = req.body;
+
+  let novaAvaliacao = await validarAvaliacao(id_paciente, avaliacao);
+
+  res.status(novaAvaliacao.status);
+  res.json(novaAvaliacao);
+});
 
 app.listen(5000, () => {
   console.log("Servidor rodando na porta 5000");
