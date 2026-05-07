@@ -1,42 +1,31 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-
-const pacientesMock = [
-  {
-    id_usuario: 1,
-    nome: "Maria Mendonça",
-    nascimento: "1990-05-10",
-    telefone: "11999999999",
-    is_ativo: true,
-    data_inicio: "2024-08-21",
-  },
-  {
-    id_usuario: 2,
-    nome: "Bruno Gomes Silveira",
-    nascimento: "1985-03-22",
-    telefone: "11988888888",
-    is_ativo: true,
-    data_inicio: "2024-08-29",
-  },
-  {
-    id_usuario: 3,
-    nome: "Ana Maria Brogui",
-    nascimento: "1978-11-01",
-    telefone: "11977777777",
-    is_ativo: false,
-    data_inicio: null,
-  },
-]
+import { listarPacientes } from "../../services/pacientes"
+import type { PacienteListItem } from "../../types"
 
 type FiltroStatus = "todos" | "ativo" | "inativo"
+
+function formatarData(iso: string) {
+  return new Date(iso).toLocaleDateString("pt-BR", { timeZone: "UTC" })
+}
 
 function Patients() {
   const navigate = useNavigate()
   const [busca, setBusca] = useState("")
   const [filtroStatus, setFiltroStatus] = useState<FiltroStatus>("todos")
+  const [pacientes, setPacientes] = useState<PacienteListItem[]>([])
+  const [loading, setLoading] = useState(true)
+  const [erro, setErro] = useState("")
 
-  const pacientesFiltrados = pacientesMock.filter(p => {
-    const matchBusca = p.nome.toLowerCase().includes(busca.toLowerCase())
+  useEffect(() => {
+    listarPacientes()
+      .then(setPacientes)
+      .catch(() => setErro("Erro ao carregar pacientes."))
+      .finally(() => setLoading(false))
+  }, [])
+
+  const pacientesFiltrados = pacientes.filter(p => {
+    const matchBusca = p.usuarios.nome.toLowerCase().includes(busca.toLowerCase())
     const matchStatus =
       filtroStatus === "todos" ||
       (filtroStatus === "ativo" && p.is_ativo) ||
@@ -52,8 +41,9 @@ function Patients() {
 
       <div className="d-flex justify-content-end mb-3">
         <button
-          onClick={() => navigate('/patients/new')}
-          style={{ backgroundColor: '#01577A', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 20px', fontWeight: '500', cursor: 'pointer'}}>
+          onClick={() => navigate("/patients/new")}
+          style={{ backgroundColor: "#01577A", color: "white", border: "none", borderRadius: "8px", padding: "8px 20px", fontWeight: "500", cursor: "pointer" }}
+        >
           Adicionar Paciente
         </button>
       </div>
@@ -79,11 +69,29 @@ function Patients() {
         </select>
       </div>
 
+      {loading && (
+        <div className="text-center" style={{ color: "#777", marginTop: "32px" }}>
+          Carregando pacientes...
+        </div>
+      )}
+
+      {erro && (
+        <div style={{ backgroundColor: "#fdecea", border: "1px solid #EE715F", borderRadius: "8px", padding: "10px 14px", color: "#EE715F", fontSize: "14px" }}>
+          {erro}
+        </div>
+      )}
+
+      {!loading && !erro && pacientesFiltrados.length === 0 && (
+        <div className="text-center" style={{ color: "#777", marginTop: "32px" }}>
+          Nenhum paciente encontrado.
+        </div>
+      )}
+
       <div className="d-flex flex-column gap-3">
         {pacientesFiltrados.map(paciente => (
           <div
-            key={paciente.id_usuario}
-            onClick={() => navigate(`/patients/${paciente.id_usuario}`)}
+            key={paciente.id_paciente}
+            onClick={() => navigate(`/patients/${paciente.id_paciente}`)}
             style={{
               backgroundColor: "#EE715F",
               borderRadius: "12px",
@@ -96,11 +104,20 @@ function Patients() {
             }}
           >
             <div style={{ fontWeight: "bold", fontSize: "18px", minWidth: "200px" }}>
-              {paciente.nome}
+              {paciente.usuarios.nome}
             </div>
             <div style={{ flex: 1, paddingLeft: "24px" }}>
-              <div>Início do tratamento: {paciente.data_inicio ?? "—"}</div>
-              <div>Telefone: {paciente.telefone}</div>
+              <div>
+                Início do tratamento:{" "}
+                {(() => {
+                  if (paciente.prontuarios[0]) {
+                    return formatarData(paciente.prontuarios[0].data_inicio_tratamento);
+                  } else {
+                    return "—";
+                  }
+                })()}
+              </div>
+              <div>Telefone: {paciente.usuarios.telefone}</div>
             </div>
             <div style={{ fontWeight: "bold" }}>
               Status: {paciente.is_ativo ? "Ativo" : "Inativo"}

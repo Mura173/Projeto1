@@ -5,14 +5,14 @@ function Navbar() {
   const navigate = useNavigate()
 
   function handleLogout() {
-    if (window.confirm("Tem certeza que deseja sair?")) {
+    if (window.confirm("Tem certeza qe deseja sair?")) {
       localStorage.clear()
       navigate("/login")
     }
   }
 
   return (
-    <nav style={{ backgroundColor: "#01577A" }} className="px-4 py-2 d-flex align-items-center justify-content-between">
+    <nav style={{ backgroundColor: "#01577A"}} className="px-4 py-2 d-flex align-items-center justify-content-between">
 
       <div className="d-flex align-items-center gap-5">
         <img src={logo} alt="Maya Yamamoto RPG" style={{ height: "40px" }} />

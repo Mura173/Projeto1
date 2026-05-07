@@ -1,4 +1,5 @@
 import { post, get, del } from "./api"
+import type { ExercicioItem } from "../types"
 
 interface NovoExercicio {
     titulo: string
@@ -6,15 +7,6 @@ interface NovoExercicio {
     orientacoes: string
     tags: string[]
     imagens: string[]
-}
-
-export interface ExercicioItem {
-    id_exercicio: number
-    titulo: string
-    descricao: string
-    orientacoes: string
-    exericios_tags: Array<{ tags: { tag: string } }>
-    imagens_exercicios: Array<{ link_imagem: string }>
 }
 
 export async function listarExercicios(): Promise<ExercicioItem[]> {
