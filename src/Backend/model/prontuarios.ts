@@ -44,8 +44,7 @@ export async function adicionarQueixa(id_paciente: number, queixa: string) {
         let nova_queixa = await prisma.queixas.create({
             data:{
                 queixa: queixa,
-                data_queixa: new Date(),
-                id_prontuario: id_prontuario as number
+                data_queixa: new Date()
             }
         })
 
@@ -81,8 +80,7 @@ export async function adicionarSinal(id_paciente: number, sinal: string, escala:
         let novo_sinal = await prisma.sinais.create({
             data:{
                 sinal: sinal,
-                escala: escala,
-                id_prontuario: id_prontuario as number
+                escala: escala
             }
         })
 
@@ -118,8 +116,7 @@ export async function adicionarAvaliacao(id_paciente: number, avaliacao: string)
         let nova_avaliacao = await prisma.avaliacoes.create({
             data:{
                 avaliacao: avaliacao,
-                data_avaliacao: new Date(),
-                id_prontuario: id_prontuario as number
+                data_avaliacao: new Date()
             }
         })
 

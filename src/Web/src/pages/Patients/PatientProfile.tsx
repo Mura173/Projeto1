@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { buscarPaciente, adicionarOrientacao } from "../../services/pacientes"
+import { buscarPaciente, adicionarOrientacao, adicionarQueixa, adicionarSinal, adicionarAvaliacao } from "../../services/pacientes"
 import type { PacienteCompleto } from "../../types"
 import CollapsibleSection from "../../components/CollapsibleSection"
 import ItemCard from "../../components/ItemCard"
 
 function formatarData(iso: string) {
-  return new Date(iso).toLocaleDateString("pt-BR", { timeZone: "UTC"})
+  return new Date(iso).toLocaleDateString("pt-BR", { timeZone: "UTC" })
 }
 
 function Vazio({ mensagem }: { mensagem: string }) {
-  return <div style={{color: "#999", fontSize: "14px" }}>{mensagem}</div>
+  return <div style={{ color: "#999", fontSize: "14px" }}>{mensagem}</div>
 }
+
+const BTN_SALVAR = { backgroundColor: "#01577A", color: "white", border: "none", borderRadius: "8px", padding: "6px 16px", fontWeight: "500", fontSize: "14px" } as const
+const BTN_CANCELAR = { backgroundColor: "#ccc", color: "#333", border: "none", borderRadius: "8px", padding: "6px 16px", fontWeight: "500", cursor: "pointer", fontSize: "14px" } as const
 
 function PatientProfile() {
   const navigate = useNavigate()
@@ -22,9 +25,24 @@ function PatientProfile() {
 
   const [mostrarFormOrientacao, setMostrarFormOrientacao] = useState(false)
   const [novaOrientacao, setNovaOrientacao] = useState("")
-  const [dataOrientacao, setDataOrientacao] = useState(() => new Date().toISOString().split("T")[0])
   const [salvandoOrientacao, setSalvandoOrientacao] = useState(false)
   const [erroOrientacao, setErroOrientacao] = useState("")
+
+  const [mostrarFormQueixa, setMostrarFormQueixa] = useState(false)
+  const [novaQueixa, setNovaQueixa] = useState("")
+  const [salvandoQueixa, setSalvandoQueixa] = useState(false)
+  const [erroQueixa, setErroQueixa] = useState("")
+
+  const [mostrarFormSinal, setMostrarFormSinal] = useState(false)
+  const [novoSinal, setNovoSinal] = useState("")
+  const [novaEscala, setNovaEscala] = useState(5)
+  const [salvandoSinal, setSalvandoSinal] = useState(false)
+  const [erroSinal, setErroSinal] = useState("")
+
+  const [mostrarFormAvaliacao, setMostrarFormAvaliacao] = useState(false)
+  const [novaAvaliacao, setNovaAvaliacao] = useState("")
+  const [salvandoAvaliacao, setSalvandoAvaliacao] = useState(false)
+  const [erroAvaliacao, setErroAvaliacao] = useState("")
 
   useEffect(() => {
     if (!id) return
@@ -34,14 +52,18 @@ function PatientProfile() {
       .finally(() => setLoading(false))
   }, [id])
 
+  const recarregar = async () => {
+    const atualizado = await buscarPaciente(Number(id))
+    setPaciente(atualizado)
+  }
+
   const salvarOrientacao = async () => {
-    if (!prontuario || !novaOrientacao.trim()) return
+    if (!paciente || !novaOrientacao.trim()) return
     setSalvandoOrientacao(true)
     setErroOrientacao("")
     try {
-      await adicionarOrientacao(prontuario.id_prontuario, novaOrientacao.trim(), dataOrientacao)
-      const atualizado = await buscarPaciente(Number(id))
-      setPaciente(atualizado)
+      await adicionarOrientacao(paciente.id_paciente, novaOrientacao.trim())
+      await recarregar()
       setNovaOrientacao("")
       setMostrarFormOrientacao(false)
     } catch {
@@ -51,10 +73,53 @@ function PatientProfile() {
     }
   }
 
-  const fecharFormOrientacao = () => {
-    setMostrarFormOrientacao(false)
-    setNovaOrientacao("")
-    setErroOrientacao("")
+  const salvarQueixa = async () => {
+    if (!paciente || !novaQueixa.trim()) return
+    setSalvandoQueixa(true)
+    setErroQueixa("")
+    try {
+      await adicionarQueixa(paciente.id_paciente, novaQueixa.trim())
+      await recarregar()
+      setNovaQueixa("")
+      setMostrarFormQueixa(false)
+    } catch {
+      setErroQueixa("Erro ao salvar queixa.")
+    } finally {
+      setSalvandoQueixa(false)
+    }
+  }
+
+  const salvarSinal = async () => {
+    if (!paciente || !novoSinal.trim()) return
+    setSalvandoSinal(true)
+    setErroSinal("")
+    try {
+      await adicionarSinal(paciente.id_paciente, novoSinal.trim(), novaEscala)
+      await recarregar()
+      setNovoSinal("")
+      setNovaEscala(5)
+      setMostrarFormSinal(false)
+    } catch {
+      setErroSinal("Erro ao salvar sinal.")
+    } finally {
+      setSalvandoSinal(false)
+    }
+  }
+
+  const salvarAvaliacao = async () => {
+    if (!paciente || !novaAvaliacao.trim()) return
+    setSalvandoAvaliacao(true)
+    setErroAvaliacao("")
+    try {
+      await adicionarAvaliacao(paciente.id_paciente, novaAvaliacao.trim())
+      await recarregar()
+      setNovaAvaliacao("")
+      setMostrarFormAvaliacao(false)
+    } catch {
+      setErroAvaliacao("Erro ao salvar avaliação.")
+    } finally {
+      setSalvandoAvaliacao(false)
+    }
   }
 
   const voltar = (
@@ -97,7 +162,7 @@ function PatientProfile() {
         <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "#f0c080", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "32px", flexShrink: 0 }}>
           👤
         </div>
-        <div style={{ flex: 1}}>
+        <div style={{ flex: 1 }}>
           <div style={{ fontWeight: "bold", fontSize: "20px", marginBottom: "8px" }}>{paciente.nome}</div>
           {prontuario && (
             <>
@@ -108,7 +173,7 @@ function PatientProfile() {
           <div>Telefone: {paciente.telefone}</div>
           <div>Data de nascimento: {formatarData(paciente.data_nascimento)}</div>
         </div>
-        <div style={{ fontWeight: "bold", fontSize: "16px", alignSelf: "flex-start"}}>
+        <div style={{ fontWeight: "bold", fontSize: "16px", alignSelf: "flex-start" }}>
           Status: {prontuario ? prontuario.classificacao : "—"}
         </div>
       </div>
@@ -128,7 +193,6 @@ function PatientProfile() {
                 </ItemCard>
               ))
             }
-
             {mostrarFormOrientacao ? (
               <div style={{ backgroundColor: "white", borderRadius: "8px", padding: "12px 16px", border: "1px solid #3EBAD2" }}>
                 <textarea
@@ -139,38 +203,16 @@ function PatientProfile() {
                   onChange={e => setNovaOrientacao(e.target.value)}
                   style={{ borderRadius: "8px", marginBottom: "8px", resize: "vertical" }}
                 />
-                <input
-                  type="date"
-                  className="form-control"
-                  value={dataOrientacao}
-                  onChange={e => setDataOrientacao(e.target.value)}
-                  style={{ borderRadius: "8px", marginBottom: "8px" }}
-                />
-                {erroOrientacao && (
-                  <div style={{ color: "#EE715F", fontSize: "13px", marginBottom: "8px" }}>{erroOrientacao}</div>
-                )}
+                {erroOrientacao && <div style={{ color: "#EE715F", fontSize: "13px", marginBottom: "8px" }}>{erroOrientacao}</div>}
                 <div className="d-flex gap-2">
-                  <button
-                    onClick={salvarOrientacao}
-                    disabled={salvandoOrientacao || !novaOrientacao.trim()}
-                    style={{ backgroundColor: "#01577A", color: "white", border: "none", borderRadius: "8px", padding: "6px 16px", fontWeight: "500", cursor: salvandoOrientacao || !novaOrientacao.trim() ? "not-allowed" : "pointer", opacity: salvandoOrientacao || !novaOrientacao.trim() ? 0.7 : 1, fontSize: "14px" }}
-                  >
+                  <button onClick={salvarOrientacao} disabled={salvandoOrientacao || !novaOrientacao.trim()} style={{ ...BTN_SALVAR, cursor: salvandoOrientacao || !novaOrientacao.trim() ? "not-allowed" : "pointer", opacity: salvandoOrientacao || !novaOrientacao.trim() ? 0.7 : 1 }}>
                     {salvandoOrientacao ? "Salvando..." : "Salvar"}
                   </button>
-                  <button
-                    onClick={fecharFormOrientacao}
-                    disabled={salvandoOrientacao}
-                    style={{ backgroundColor: "#ccc", color: "#333", border: "none", borderRadius: "8px", padding: "6px 16px", fontWeight: "500", cursor: "pointer", fontSize: "14px" }}
-                  >
-                    Cancelar
-                  </button>
+                  <button onClick={() => { setMostrarFormOrientacao(false); setNovaOrientacao(""); setErroOrientacao("") }} disabled={salvandoOrientacao} style={BTN_CANCELAR}>Cancelar</button>
                 </div>
               </div>
             ) : (
-              <button
-                onClick={() => setMostrarFormOrientacao(true)}
-                style={{ backgroundColor: "#01577A", color: "white", border: "none", borderRadius: "8px", padding: "6px 16px", fontWeight: "500", cursor: "pointer", fontSize: "14px", alignSelf: "flex-start" }}
-              >
+              <button onClick={() => setMostrarFormOrientacao(true)} style={{ ...BTN_SALVAR, cursor: "pointer", alignSelf: "flex-start" }}>
                 + Nova Orientação
               </button>
             )}
@@ -178,7 +220,7 @@ function PatientProfile() {
 
           <CollapsibleSection titulo="Exercícios Prescritos">
             {prontuario.prontuarios_exercicios.length === 0
-              ? <Vazio mensagem="Nenhum exerício prescrito." />
+              ? <Vazio mensagem="Nenhum exercício prescrito." />
               : prontuario.prontuarios_exercicios.map(prescricao => (
                 <ItemCard key={prescricao.exercicios.id_exercicio}>
                   <div style={{ fontWeight: "bold", color: "#01577A" }}>{prescricao.exercicios.titulo}</div>
@@ -201,6 +243,29 @@ function PatientProfile() {
                   </ItemCard>
                 ))
               }
+              {mostrarFormQueixa ? (
+                <div style={{ backgroundColor: "white", borderRadius: "8px", padding: "12px 16px", border: "1px solid #3EBAD2", marginTop: "8px" }}>
+                  <textarea
+                    className="form-control"
+                    placeholder="Queixa"
+                    rows={2}
+                    value={novaQueixa}
+                    onChange={e => setNovaQueixa(e.target.value)}
+                    style={{ borderRadius: "8px", marginBottom: "8px", resize: "vertical" }}
+                  />
+                  {erroQueixa && <div style={{ color: "#EE715F", fontSize: "13px", marginBottom: "8px" }}>{erroQueixa}</div>}
+                  <div className="d-flex gap-2">
+                    <button onClick={salvarQueixa} disabled={salvandoQueixa || !novaQueixa.trim()} style={{ ...BTN_SALVAR, cursor: salvandoQueixa || !novaQueixa.trim() ? "not-allowed" : "pointer", opacity: salvandoQueixa || !novaQueixa.trim() ? 0.7 : 1 }}>
+                      {salvandoQueixa ? "Salvando..." : "Salvar"}
+                    </button>
+                    <button onClick={() => { setMostrarFormQueixa(false); setNovaQueixa(""); setErroQueixa("") }} disabled={salvandoQueixa} style={BTN_CANCELAR}>Cancelar</button>
+                  </div>
+                </div>
+              ) : (
+                <button onClick={() => setMostrarFormQueixa(true)} style={{ ...BTN_SALVAR, cursor: "pointer", marginTop: "8px" }}>
+                  + Nova Queixa
+                </button>
+              )}
             </div>
 
             <div>
@@ -213,6 +278,42 @@ function PatientProfile() {
                   </ItemCard>
                 ))
               }
+              {mostrarFormSinal ? (
+                <div style={{ backgroundColor: "white", borderRadius: "8px", padding: "12px 16px", border: "1px solid #3EBAD2", marginTop: "8px" }}>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Sinal clínico"
+                    value={novoSinal}
+                    onChange={e => setNovoSinal(e.target.value)}
+                    style={{ borderRadius: "8px", marginBottom: "8px" }}
+                  />
+                  <div style={{ marginBottom: "8px" }}>
+                    <label style={{ fontSize: "14px", color: "#555", display: "block", marginBottom: "4px" }}>
+                      Escala de dor: {novaEscala}/10
+                    </label>
+                    <input
+                      type="range"
+                      min={1}
+                      max={10}
+                      value={novaEscala}
+                      onChange={e => setNovaEscala(Number(e.target.value))}
+                      style={{ width: "100%" }}
+                    />
+                  </div>
+                  {erroSinal && <div style={{ color: "#EE715F", fontSize: "13px", marginBottom: "8px" }}>{erroSinal}</div>}
+                  <div className="d-flex gap-2">
+                    <button onClick={salvarSinal} disabled={salvandoSinal || !novoSinal.trim()} style={{ ...BTN_SALVAR, cursor: salvandoSinal || !novoSinal.trim() ? "not-allowed" : "pointer", opacity: salvandoSinal || !novoSinal.trim() ? 0.7 : 1 }}>
+                      {salvandoSinal ? "Salvando..." : "Salvar"}
+                    </button>
+                    <button onClick={() => { setMostrarFormSinal(false); setNovoSinal(""); setNovaEscala(5); setErroSinal("") }} disabled={salvandoSinal} style={BTN_CANCELAR}>Cancelar</button>
+                  </div>
+                </div>
+              ) : (
+                <button onClick={() => setMostrarFormSinal(true)} style={{ ...BTN_SALVAR, cursor: "pointer", marginTop: "8px" }}>
+                  + Novo Sinal
+                </button>
+              )}
             </div>
 
             <div>
@@ -226,7 +327,30 @@ function PatientProfile() {
                   </ItemCard>
                 ))
               }
-          </div>
+              {mostrarFormAvaliacao ? (
+                <div style={{ backgroundColor: "white", borderRadius: "8px", padding: "12px 16px", border: "1px solid #3EBAD2", marginTop: "8px" }}>
+                  <textarea
+                    className="form-control"
+                    placeholder="Avaliação"
+                    rows={3}
+                    value={novaAvaliacao}
+                    onChange={e => setNovaAvaliacao(e.target.value)}
+                    style={{ borderRadius: "8px", marginBottom: "8px", resize: "vertical" }}
+                  />
+                  {erroAvaliacao && <div style={{ color: "#EE715F", fontSize: "13px", marginBottom: "8px" }}>{erroAvaliacao}</div>}
+                  <div className="d-flex gap-2">
+                    <button onClick={salvarAvaliacao} disabled={salvandoAvaliacao || !novaAvaliacao.trim()} style={{ ...BTN_SALVAR, cursor: salvandoAvaliacao || !novaAvaliacao.trim() ? "not-allowed" : "pointer", opacity: salvandoAvaliacao || !novaAvaliacao.trim() ? 0.7 : 1 }}>
+                      {salvandoAvaliacao ? "Salvando..." : "Salvar"}
+                    </button>
+                    <button onClick={() => { setMostrarFormAvaliacao(false); setNovaAvaliacao(""); setErroAvaliacao("") }} disabled={salvandoAvaliacao} style={BTN_CANCELAR}>Cancelar</button>
+                  </div>
+                </div>
+              ) : (
+                <button onClick={() => setMostrarFormAvaliacao(true)} style={{ ...BTN_SALVAR, cursor: "pointer", marginTop: "8px" }}>
+                  + Nova Avaliação
+                </button>
+              )}
+            </div>
 
           </CollapsibleSection>
 
