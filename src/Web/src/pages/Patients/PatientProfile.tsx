@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { buscarPaciente, adicionarOrientacao, adicionarQueixa, adicionarSinal, adicionarAvaliacao } from "../../services/pacientes"
-import type { PacienteCompleto } from "../../types"
+import { buscarPaciente, adicionarOrientacao, adicionarQueixa, adicionarSinal, adicionarAvaliacao, prescreverExercicio } from "../../services/pacientes"
+import { listarExercicios } from "../../services/exercicios"
+import type { PacienteCompleto, ExercicioItem } from "../../types"
 import CollapsibleSection from "../../components/CollapsibleSection"
 import ItemCard from "../../components/ItemCard"
 
@@ -44,6 +45,11 @@ function PatientProfile() {
   const [salvandoAvaliacao, setSalvandoAvaliacao] = useState(false)
   const [erroAvaliacao, setErroAvaliacao] = useState("")
 
+  const [exerciciosDisponiveis, setExerciciosDisponiveis] = useState<ExercicioItem[]>([])
+  const [exercicioSelecionado, setExercicioSelecionado] = useState("")
+  const [prescrevendo, setPrescrevendo] = useState(false)
+  const [erroPrescricao, setErroPrescricao] = useState("")
+
   useEffect(() => {
     if (!id) return
     buscarPaciente(Number(id))
@@ -52,9 +58,28 @@ function PatientProfile() {
       .finally(() => setLoading(false))
   }, [id])
 
+  useEffect(() => {
+    listarExercicios().then(setExerciciosDisponiveis).catch(() => {})
+  }, [])
+
   const recarregar = async () => {
     const atualizado = await buscarPaciente(Number(id))
     setPaciente(atualizado)
+  }
+
+  const handlePrescrever = async () => {
+    if (!paciente || !exercicioSelecionado) return
+    setPrescrevendo(true)
+    setErroPrescricao("")
+    try {
+      await prescreverExercicio(paciente.id_paciente, Number(exercicioSelecionado))
+      await recarregar()
+      setExercicioSelecionado("")
+    } catch {
+      setErroPrescricao("Erro ao prescrever exercício.")
+    } finally {
+      setPrescrevendo(false)
+    }
   }
 
   const salvarOrientacao = async () => {
@@ -228,6 +253,37 @@ function PatientProfile() {
                 </ItemCard>
               ))
             }
+
+            {(() => {
+              const jaPrescritos = new Set(prontuario.prontuarios_exercicios.map(p => p.exercicios.id_exercicio))
+              const disponiveis = exerciciosDisponiveis.filter(e => !jaPrescritos.has(e.id_exercicio))
+              if (disponiveis.length === 0) return null
+              return (
+                <div>
+                  <div className="d-flex gap-2 align-items-center mt-1">
+                    <select
+                      className="form-select"
+                      value={exercicioSelecionado}
+                      onChange={e => setExercicioSelecionado(e.target.value)}
+                      style={{ borderRadius: "8px" }}
+                    >
+                      <option value="">Selecionar exercício...</option>
+                      {disponiveis.map(e => (
+                        <option key={e.id_exercicio} value={e.id_exercicio}>{e.titulo}</option>
+                      ))}
+                    </select>
+                    <button
+                      onClick={handlePrescrever}
+                      disabled={!exercicioSelecionado || prescrevendo}
+                      style={{ ...BTN_SALVAR, cursor: !exercicioSelecionado || prescrevendo ? "not-allowed" : "pointer", opacity: !exercicioSelecionado || prescrevendo ? 0.7 : 1, whiteSpace: "nowrap" }}
+                    >
+                      {prescrevendo ? "Prescrevendo..." : "Prescrever"}
+                    </button>
+                  </div>
+                  {erroPrescricao && <div style={{ color: "#EE715F", fontSize: "13px", marginTop: "6px" }}>{erroPrescricao}</div>}
+                </div>
+              )
+            })()}
           </CollapsibleSection>
 
           <CollapsibleSection titulo="Prontuário Completo" gap="gap-3">

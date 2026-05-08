@@ -1,6 +1,22 @@
 import { prisma } from "../libs/prisma.ts";
 import { buscarProntuario } from "./usuarios.ts";
 
+export async function prescreverExercicio(id_paciente: number, id_exercicio: number) {
+    try {
+        const prontuario = await buscarProntuario(id_paciente)
+        if (!prontuario || prontuario.length === 0) return false
+
+        const id_prontuario = prontuario[0].id_prontuario
+
+        return await prisma.prontuarios_exercicios.create({
+            data: { id_prontuario, id_exercicio }
+        })
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+}
+
 export async function adicionarOrientacao(id_paciente: number, orientacao: string) {
     try {
         let prontuario = await buscarProntuario(id_paciente)

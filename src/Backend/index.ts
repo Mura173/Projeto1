@@ -6,7 +6,7 @@ import {
   ValidarLoginUsuario,
 } from "./controller/controller_usuarios.ts";
 import { validarCadastroExercicio, listarExercicios, removerExercicio } from "./controller/controller_exercicios.ts";
-import { validarAvaliacao, validarOrientacao, validarQueixa, validarSinal } from "./controller/controller_prontuarios.ts";
+import { validarAvaliacao, validarOrientacao, validarQueixa, validarSinal, validarPrescricao } from "./controller/controller_prontuarios.ts";
 
 const app = express();
 app.use(express.json());
@@ -133,6 +133,16 @@ app.post("/adicionarAvaliacao/:id", async (req, res) => {
 
   res.status(novaAvaliacao.status);
   res.json(novaAvaliacao);
+});
+
+app.post("/prescreverExercicio/:id", async (req, res) => {
+  const id_paciente = Number(req.params.id);
+  const { id_exercicio } = req.body;
+
+  const resultado = await validarPrescricao(id_paciente, id_exercicio);
+
+  res.status(resultado.status);
+  res.json(resultado);
 });
 
 app.listen(5000, () => {

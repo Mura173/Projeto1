@@ -1,6 +1,17 @@
-import { adicionarAvaliacao, adicionarOrientacao, adicionarQueixa, adicionarSinal } from "../model/prontuarios.ts";
+import { adicionarAvaliacao, adicionarOrientacao, adicionarQueixa, adicionarSinal, prescreverExercicio } from "../model/prontuarios.ts";
 import type { TNovaAvaliacao, TNovaOrientacao, TNovaQueixa, TNovoSinal } from "../types/types.ts";
 import { ERROR_REQUIRED_FIELDS } from "../util/messages.ts";
+
+export async function validarPrescricao(id_paciente: number, id_exercicio: number): Promise<{ status: number; message: unknown }> {
+    if (!id_paciente || isNaN(id_paciente) || !id_exercicio || isNaN(id_exercicio)) {
+        return { status: 400, message: ERROR_REQUIRED_FIELDS.message }
+    }
+
+    const resultado = await prescreverExercicio(id_paciente, id_exercicio)
+    if (!resultado) return { status: 500, message: "Erro ao prescrever exercício" }
+
+    return { status: 201, message: resultado }
+}
 
 
 export async function validarOrientacao(id_paciente: number, orientacao: string) :  Promise<{status: number, message: string | TNovaOrientacao}> {

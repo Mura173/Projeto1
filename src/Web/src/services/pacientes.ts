@@ -23,6 +23,10 @@ export async function adicionarSinal(id_paciente: number, sinal: string,escala: 
     await post<unknown>(`/adicionarSinal/${id_paciente}`, { sinal, escala })
 }
 
-export async function adicionarAvaliacao(id_paciente:number , avaliacao: string): Promise<void> {
+export async function adicionarAvaliacao(id_paciente: number, avaliacao: string): Promise<void> {
     await post<unknown>(`/adicionarAvaliacao/${id_paciente}`, { avaliacao })
+}
+
+export async function prescreverExercicio(id_paciente: number, id_exercicio: number): Promise<void> {
+    await post<unknown>(`/prescreverExercicio/${id_paciente}`, { id_exercicio })
 }
