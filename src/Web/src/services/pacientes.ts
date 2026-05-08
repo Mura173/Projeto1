@@ -11,6 +11,22 @@ export async function buscarPaciente(id: number): Promise<PacienteCompleto> {
     return res.data
 }
 
-export async function adicionarOrientacao(id_prontuario: number, orientacao: string, data_orientacao: string): Promise<void> {
-    await post<unknown>(`/prontuario/${id_prontuario}/orientacao`, { orientacao, data_orientacao })
+export async function adicionarOrientacao(id_paciente: number, orientacao: string): Promise<void> {
+    await post<unknown>(`/adicionarOrientacao/${id_paciente}`, { orientacao })
+}
+
+export async function adicionarQueixa(id_paciente: number, queixa: string): Promise<void> {
+    await post<unknown>(`/adicionarQueixa/${id_paciente}`, { queixa })
+}
+
+export async function adicionarSinal(id_paciente: number, sinal: string,escala: number): Promise<void> {
+    await post<unknown>(`/adicionarSinal/${id_paciente}`, { sinal, escala })
+}
+
+export async function adicionarAvaliacao(id_paciente: number, avaliacao: string): Promise<void> {
+    await post<unknown>(`/adicionarAvaliacao/${id_paciente}`, { avaliacao })
+}
+
+export async function prescreverExercicio(id_paciente: number, id_exercicio: number): Promise<void> {
+    await post<unknown>(`/prescreverExercicio/${id_paciente}`, { id_exercicio })
 }

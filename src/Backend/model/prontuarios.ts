@@ -1,6 +1,22 @@
 import { prisma } from "../libs/prisma.ts";
 import { buscarProntuario } from "./usuarios.ts";
 
+export async function prescreverExercicio(id_paciente: number, id_exercicio: number) {
+    try {
+        const prontuario = await buscarProntuario(id_paciente)
+        if (!prontuario || prontuario.length === 0) return false
+
+        const id_prontuario = prontuario[0].id_prontuario
+
+        return await prisma.prontuarios_exercicios.create({
+            data: { id_prontuario, id_exercicio }
+        })
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+}
+
 export async function adicionarOrientacao(id_paciente: number, orientacao: string) {
     try {
         let prontuario = await buscarProntuario(id_paciente)
@@ -44,8 +60,7 @@ export async function adicionarQueixa(id_paciente: number, queixa: string) {
         let nova_queixa = await prisma.queixas.create({
             data:{
                 queixa: queixa,
-                data_queixa: new Date(),
-                id_prontuario: id_prontuario as number
+                data_queixa: new Date()
             }
         })
 
@@ -81,8 +96,7 @@ export async function adicionarSinal(id_paciente: number, sinal: string, escala:
         let novo_sinal = await prisma.sinais.create({
             data:{
                 sinal: sinal,
-                escala: escala,
-                id_prontuario: id_prontuario as number
+                escala: escala
             }
         })
 
@@ -118,8 +132,7 @@ export async function adicionarAvaliacao(id_paciente: number, avaliacao: string)
         let nova_avaliacao = await prisma.avaliacoes.create({
             data:{
                 avaliacao: avaliacao,
-                data_avaliacao: new Date(),
-                id_prontuario: id_prontuario as number
+                data_avaliacao: new Date()
             }
         })
 
