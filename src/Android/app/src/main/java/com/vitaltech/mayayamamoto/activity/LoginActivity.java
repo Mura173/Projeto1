@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Login feito!", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(LoginActivity.this, TrilhaExerciciosActivity.class);
+
                         startActivity(intent);
 
                     } else {

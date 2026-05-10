@@ -56,6 +56,18 @@
         app:layout_constraintEnd_toStartOf="@+id/imgExercicio"
         app:layout_constraintTop_toBottomOf="@+id/txtNomeExercicio" />
 
+    <TextView
+        android:id="@+id/txtObservacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="observacao"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgExercicio" />
+
     <Button
         android:id="@+id/btFinalizarExercicio"
         android:layout_width="wrap_content"
@@ -66,7 +78,7 @@
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
         android:backgroundTint="@color/marrom"
-        app:layout_constraintTop_toBottomOf="@+id/imgExercicio"
+        app:layout_constraintBottom_toTopOf="@+id/btVoltar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
