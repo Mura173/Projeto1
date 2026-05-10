@@ -30,10 +30,10 @@
             android:textSize="18sp"/>
 
         <TextView
-            android:id="@+id/txtFrequencia"
+            android:id="@+id/txtDescricao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2x ao dia"/>
+            android:text="descricao"/>
     </LinearLayout>
 
 </LinearLayout>

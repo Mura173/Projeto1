@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.vitaltech.mayayamamoto.model.Exercicios;
 import com.vitaltech.mayayamamoto.R;
 import com.vitaltech.mayayamamoto.activity.DetalheActivity;
@@ -30,13 +31,13 @@ public class ExercicioAdapter extends RecyclerView.Adapter<ExercicioAdapter.View
 
     // Celula da lista
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNome, txtFrequencia;
+        TextView txtNome, txtDescricao;
         ImageView imgExercicio;
 
         public ViewHolder(View itemView) {
             super(itemView);
             txtNome = itemView.findViewById(R.id.txtNome);
-            txtFrequencia = itemView.findViewById(R.id.txtFrequencia);
+            txtDescricao = itemView.findViewById(R.id.txtDescricao);
             imgExercicio = itemView.findViewById(R.id.imgExercicio);
         }
     }
@@ -54,11 +55,33 @@ public class ExercicioAdapter extends RecyclerView.Adapter<ExercicioAdapter.View
         Exercicios ex = lista.get(position);
 
         holder.txtNome.setText(ex.getTitulo());
-        holder.imgExercicio.setImageResource(ex.getImgExercicio());
+        holder.txtDescricao.setText(ex.getDescricao());
 
-        // Quando clicar, vai para outra tela, pegando somente o nome do exercicio
+        String imagemUrl = "";
+
+        if(ex.getImagens_exercicios() != null &&
+                !ex.getImagens_exercicios().isEmpty()){
+
+            imagemUrl =
+                    ex.getImagens_exercicios()
+                            .get(0)
+                            .getLink_imagem();
+        }
+
+        final String finalImagemUrl = imagemUrl;
+
+        Glide.with(context)
+                .load(finalImagemUrl)
+                .into(holder.imgExercicio);
+
         holder.itemView.setOnClickListener(v -> {
+
             Intent intent = new Intent(context, DetalheActivity.class);
+
+            intent.putExtra("nome", ex.getTitulo());
+            intent.putExtra("descricao", ex.getDescricao());
+            intent.putExtra("orientacoes", ex.getOrientacoes());
+            intent.putExtra("imagem", finalImagemUrl);
 
             context.startActivity(intent);
         });

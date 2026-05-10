@@ -14,6 +14,7 @@ import com.vitaltech.mayayamamoto.adapter.ExercicioAdapter;
 import com.vitaltech.mayayamamoto.model.Exercicios;
 import com.vitaltech.mayayamamoto.R;
 import com.vitaltech.mayayamamoto.model.ExerciseResponse;
+import com.vitaltech.mayayamamoto.model.Usuarios;
 import com.vitaltech.mayayamamoto.network.ApiService;
 import com.vitaltech.mayayamamoto.network.RetrofitClient;
 
@@ -27,6 +28,8 @@ public class TrilhaExerciciosActivity extends AppCompatActivity {
     RecyclerView recycler;
     TextView txtOla;
     Intent intent;
+
+    Usuarios usuarios;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

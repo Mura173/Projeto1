@@ -8,20 +8,21 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.vitaltech.mayayamamoto.R;
+import com.vitaltech.mayayamamoto.model.Exercicios;
 
 public class DetalheActivity extends AppCompatActivity {
     ImageView img;
-    TextView nome, descricao;
+    TextView nome, observacao;
     Button btVoltar;
-
-    // Mini carrossel provisorio
-    int[] imagens = {R.drawable.inspirar1, R.drawable.segurar2, R.drawable.expirar3};
 
     int index = 0;
     ImageView imgArrowRight, imgArrowLeft;
 
     Intent intent;
+
+    Exercicios ex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +34,21 @@ public class DetalheActivity extends AppCompatActivity {
         imgArrowLeft = findViewById(R.id.imgArrowLeft);
 
         nome = findViewById(R.id.txtNomeExercicio);
+        observacao = findViewById(R.id.txtObservacao);
         btVoltar = findViewById(R.id.btVoltar);
 
         String nomeRecebido = getIntent().getStringExtra("nome");
-        /* String imagemRecebida = getIntent().getStringExtra("imagem");
-        String descricaoRecebida = getIntent().getStringExtra("descricao"); */
+        String orientacaoRecebida = getIntent().getStringExtra("orientacoes");
+        String imagemRecebida = getIntent().getStringExtra("imagem");
 
         nome.setText(nomeRecebido);
+        observacao.setText(orientacaoRecebida);
 
-        /*Glide.with(this)
+        Glide.with(this)
                 .load(imagemRecebida)
-                .into(img); */
+                .into(img);
 
-        imgArrowRight.setOnClickListener(v -> {
+        /* imgArrowRight.setOnClickListener(v -> {
             index++;
 
             if(index >= imagens.length){
@@ -53,9 +56,9 @@ public class DetalheActivity extends AppCompatActivity {
             }
 
             img.setImageResource(imagens[index]);
-        });
+        }); */
 
-        imgArrowLeft.setOnClickListener(v -> {
+        /*imgArrowLeft.setOnClickListener(v -> {
             index--;
 
             if (index <= imagens.length){
@@ -63,7 +66,7 @@ public class DetalheActivity extends AppCompatActivity {
             }
 
             img.setImageResource(imagens[index]);
-        });
+        }); */
 
         btVoltar.setOnClickListener( v-> {
             intent = new Intent(DetalheActivity.this, TrilhaExerciciosActivity.class);
