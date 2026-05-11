@@ -107,7 +107,7 @@ npm run dev
 `````bash
 (Em outro terminal)
 
-cd ./src/Frontend/src
+cd ./src/Web/src
 npm install
 
 # Inicie o servidor de desenvolvimento
@@ -125,7 +125,7 @@ npm run start
 </ul>
 
 ## 📋 Licença/License
-<a href="https://github.com/2026-1-NCC3/Projeto1">VitalTech</a> © 2026 by <a href="https://github.com/2026-1-NCC3/Projeto1">Enzo Henrique Neves Sena, Harry Zhu, Murilo Angelo Pimentel Braggio, Vitor Paes Kolle</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>
+<a href="https://github.com/2026-1-NCC3/Projeto1">VitalTech</a> © 2026 by <a href="https://github.com/2026-1-NCC3/Projeto1">Enzo Henrique Neves Sena, Harry Zhu, Murilo Angelo Pimentel Braggio, Vitor Paes Kolle, FECAP</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY 4.0</a>
 <img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .1em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .1em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .1em;">
 
 
