@@ -154,6 +154,7 @@ export async function ValidarEmail(email: string) {
 
                 return {
                     id_paciente: paciente.id_paciente,
+                    is_ativo: paciente.is_ativo,
                     nome: paciente.usuarios.nome,
                     email: paciente.usuarios.email,
                     hash_senha: paciente.usuarios.hash_senha,
