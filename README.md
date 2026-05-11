@@ -19,10 +19,10 @@ A VitalTech é um projeto feito por estudantes da FECAP de Ciências da Computa�
 ## 📄 Entregas
 | **Disciplina**              | **Entrega 1**                      | **Entrega 2**                        |
 |-------------------------|--------------------------------|----------------------------------|
-| **Análise Descritiva de Dados**          | [Dados, Variáveis e Interpretações](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%201/An%C3%A1lise%20Descritiva%20de%20Dados/Entrega%201%20-%20An%C3%A1lise%20Descritiva%20de%20Dados.pdf)     | [Planilha de Análise](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%202/An%C3%A1lise%20Descritiva%20de%20Dados/Entrega%202%20-%20An%C3%A1lise%20Descritiva%20de%20Dados.pdf) |
+| **Análise Descritiva de Dados**          | [Dados, Variáveis e Interpretações](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%201/An%C3%A1lise%20Descritiva%20de%20Dados/Entrega%201%20-%20An%C3%A1lise%20Descritiva%20de%20Dados.pdf)     | [Planilha de Análise](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%202/An%C3%A1lise%20Descritiva%20de%20Dados) |
 | **Programação Orientada a Objetivos e Estrutura de Dados**      | [Diagrama de entidades tela principal](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%201/Programa%C3%A7%C3%A3o%20Orientada%20a%20Objetos%20e%20Estrutura%20de%20Dados/Diagrama%20VitalTech%20(1).pdf)       | [Diagrama de entidades completo](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%202/Programa%C3%A7%C3%A3o%20Orientada%20a%20Objetos%20e%20Estrutura%20de%20Dados/Entrega%202%20-%20Programa%C3%A7%C3%A3o%20Orientada%20a%20Objeto.pdf) |
 | **Programação para Dispositivos Móveis**      | [Aplicação Android](https://github.com/2026-1-NCC3/Projeto1/tree/main/src/Android)    | [Aplicação Android](https://github.com/2026-1-NCC3/Projeto1/tree/main/Documentos/Entrega%202/Programa%C3%A7%C3%A3o%20para%20Dispositivos%20M%C3%B3veis)     |
-| **Projeto Interdisciplinar: Aplicativo Móvel**| [Apk](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%201/Projeto%20Interdisciplinar%20Aplicativo%20M%C3%B3vel/vitaltech_maya.apk)                     | [Apk completo](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%202/Projeto%20Interdisciplinar%20Aplicativo%20M%C3%B3vel/mayayamamoto.apk)         |
+| **Projeto Interdisciplinar: Aplicativo Móvel**| [Apk](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%201/Projeto%20Interdisciplinar%20Aplicativo%20M%C3%B3vel/vitaltech_maya.apk)                     | [Apk completo](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%202/Projeto%20Interdisciplinar%20Aplicativo%20M%C3%B3vel)         |
 
 
 </br>
@@ -36,19 +36,22 @@ A VitalTech é um projeto feito por estudantes da FECAP de Ciências da Computa�
       &emsp;&emsp;|-->Análise Descritiva de Dados<br>
       &emsp;&emsp;|-->Programação Orientada a Objetos e Estrutura de Dados<br>
       &emsp;&emsp;|-->Programação para Dispositivos Móveis<br>
-      &emsp;&emsp;|-->Projeto Interdisciplinar Programação Web<br>
       &emsp;&emsp;|-->Projeto Interdisciplinar Aplicativo Móvel<br>
   &emsp;|-->Entrega 2<br>
       &emsp;&emsp;|-->Análise Descritiva de Dados<br>
       &emsp;&emsp;|-->Programação Orientada a Objetos e Estrutura de Dados<br>
       &emsp;&emsp;|-->Programação para Dispositivos Móveis<br>
-      &emsp;&emsp;|-->Projeto Interdisciplinar Programação Web<br>
       &emsp;&emsp;|-->Projeto Interdisciplinar Aplicativo Móvel<br>
 |-->imagens<br>
 |-->src<br>
-  &emsp;|-->Android<br>
-  &emsp;|-->Backend<br>
-  &emsp;|-->Web<br>
+  &emsp;|-->Entrega 1<br>
+         &emsp;&emsp;|-->Android<br>
+         &emsp;&emsp;|-->Backend<br>
+         &emsp;&emsp;|-->Web<br>
+  &emsp;|-->Entrega 2<br>
+         &emsp;&emsp;|-->Android<br>
+         &emsp;&emsp;|-->Backend<br>
+         &emsp;&emsp;|-->Web<br>
 |readme.md<br>
 
 ## 🛠 Link para acessar o Site
