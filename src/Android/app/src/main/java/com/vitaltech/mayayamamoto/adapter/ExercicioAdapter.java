@@ -81,7 +81,22 @@ public class ExercicioAdapter extends RecyclerView.Adapter<ExercicioAdapter.View
             intent.putExtra("nome", ex.getTitulo());
             intent.putExtra("descricao", ex.getDescricao());
             intent.putExtra("orientacoes", ex.getOrientacoes());
-            intent.putExtra("imagem", finalImagemUrl);
+
+            ArrayList<String> imagens = new ArrayList<>();
+
+            if(ex.getImagens_exercicios() != null){
+
+                for(int i = 0; i < ex.getImagens_exercicios().size(); i++){
+
+                    imagens.add(
+                            ex.getImagens_exercicios()
+                                    .get(i)
+                                    .getLink_imagem()
+                    );
+                }
+            }
+
+            intent.putStringArrayListExtra("imagens", imagens);
 
             context.startActivity(intent);
         });

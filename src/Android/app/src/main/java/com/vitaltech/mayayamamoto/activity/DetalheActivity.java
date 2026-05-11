@@ -23,6 +23,7 @@ import com.vitaltech.mayayamamoto.R;
 import com.vitaltech.mayayamamoto.model.Exercicios;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -30,6 +31,7 @@ public class DetalheActivity extends AppCompatActivity {
     ImageView img;
     TextView nome, observacao;
     Button btVoltar, btFinalizarExercicio;
+    ArrayList<String> imagens;
 
     int index = 0;
     ImageView imgArrowRight, imgArrowLeft;
@@ -50,6 +52,8 @@ public class DetalheActivity extends AppCompatActivity {
             }, 100);
         }
 
+        imagens = getIntent().getStringArrayListExtra("imagens");
+
         img = findViewById(R.id.imgExercicio);
         imgArrowRight = findViewById(R.id.imgArrowRight);
         imgArrowLeft = findViewById(R.id.imgArrowLeft);
@@ -61,34 +65,40 @@ public class DetalheActivity extends AppCompatActivity {
 
         String nomeRecebido = getIntent().getStringExtra("nome");
         String orientacaoRecebida = getIntent().getStringExtra("orientacoes");
-        String imagemRecebida = getIntent().getStringExtra("imagem");
+        // String imagemRecebida = getIntent().getStringExtra("imagem");
 
         nome.setText(nomeRecebido);
         observacao.setText(orientacaoRecebida);
 
         Glide.with(this)
-                .load(imagemRecebida)
+                .load(imagens.get(index))
                 .into(img);
 
-        /* imgArrowRight.setOnClickListener(v -> {
+        imgArrowRight.setOnClickListener(v -> {
+
             index++;
 
-            if(index >= imagens.length){
-                index=0;
-            }
-
-            img.setImageResource(imagens[index]);
-        }); */
-
-        /*imgArrowLeft.setOnClickListener(v -> {
-            index--;
-
-            if (index <= imagens.length){
+            if(index >= imagens.size()){
                 index = 0;
             }
 
-            img.setImageResource(imagens[index]);
-        }); */
+            Glide.with(this)
+                    .load(imagens.get(index))
+                    .into(img);
+        });
+
+        imgArrowLeft.setOnClickListener(v -> {
+
+            index--;
+
+            if(index < 0){
+                index = imagens.size() - 1;
+            }
+
+            Glide.with(this)
+                    .load(imagens.get(index))
+                    .into(img);
+        });
 
         btFinalizarExercicio.setOnClickListener(v -> {
 
