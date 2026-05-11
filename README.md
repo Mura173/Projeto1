@@ -121,7 +121,6 @@ npm run start
 <ul>
   <li>O front-end estará disponível em http://localhost:5173</li>
   <li>O back-end estará rodando em http://localhost:3000</li>
-  <li></li>
 </ul>
 
 ## 📋 Licença/License
@@ -132,5 +131,6 @@ npm run start
 ## 🎓 Referências
 
 - <a href="https://mayayamamoto.com.br/">Maya Yamamoto RPG</a> </br>
+- <a href="https://www.youtube.com/@PhysioclemSaude">Physioclem</a> </br>
 
 
