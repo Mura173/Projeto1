@@ -56,20 +56,27 @@
         app:layout_constraintEnd_toStartOf="@+id/imgExercicio"
         app:layout_constraintTop_toBottomOf="@+id/txtNomeExercicio" />
 
-    <TextView
-        android:id="@+id/txtObservacao"
+    <ScrollView
+        android:id="@+id/scrollObservacao"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="24dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:text="observacao"
-        android:fontFamily="sans-serif-medium"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgExercicio"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgExercicio" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btFinalizarExercicio">
+
+        <TextView
+            android:id="@+id/txtObservacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="observacao"
+            android:textAlignment="center"
+            android:textSize="18sp"/>
+
+    </ScrollView>
 
     <Button
         android:id="@+id/btFinalizarExercicio"
