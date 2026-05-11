@@ -154,7 +154,6 @@ export async function ValidarEmail(email: string) {
 
                 return {
                     id_paciente: paciente.id_paciente,
-                    is_ativo: paciente.is_ativo,
                     nome: paciente.usuarios.nome,
                     email: paciente.usuarios.email,
                     hash_senha: paciente.usuarios.hash_senha,
@@ -171,70 +170,3 @@ export async function ValidarEmail(email: string) {
         }
     }
 
-    export async function listarPacientes() {
-        try {
-            const pacientes = await prisma.pacientes.findMany({
-                include: {
-                    usuarios: true,
-                    prontuarios: {
-                        include: {
-                            orientacoes: true,
-                            prontuarios_exercicios: {
-                                include: {
-                                    exercicios: true
-                                }
-                            },
-                            prontuarios_avaliacoes: {
-                                include: {
-                                    avaliacoes: true
-                                }
-                            },
-                            prontuarios_sinais: {
-                                include: {
-                                    sinais: true
-                                }
-                            },
-                            prontuarios_queixas: {
-                                include: {
-                                    queixas: true
-                                }
-                            }
-                        }
-                    }
-                }
-            })
-
-            return pacientes
-
-        } catch (error) {
-            console.log(error)
-            return false
-        }
-    }
-
-export async function buscarProntuario(id_paciente: number) {
-    try {
-        let paciente = await prisma.pacientes.findUnique({
-            where: {
-                id_paciente: id_paciente
-            },
-            include: {
-                prontuarios: {
-                    include: {
-                        orientacoes: true,
-                    }
-                }
-            }
-        })
-
-        if (!paciente) {
-            return false
-        }
-
-        return paciente.prontuarios
-        
-    } catch (error) {
-        console.log(error)
-        return false
-    }
-}

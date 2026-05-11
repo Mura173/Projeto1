@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const api = axios.create({
-    baseURL: "https://back-end-vitaltech.onrender.com",
+    baseURL: "https://back-end-vitaltech.onrender.com"
 })
 
 export class ApiError extends Error {
