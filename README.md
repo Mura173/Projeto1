@@ -58,6 +58,21 @@ https://mayayamamoto-vitaltech.vercel.app/
 Login: maya@vitaltech.com <br>
 Senha: senha123
 
+## 📱 Acessar aplicação Android
+
+> ⚠️ **Importante:** o aplicativo está disponível apenas para dispositivos Android.
+
+### 📥 Download do APK
+
+[Clique aqui para baixar o aplicativo](https://github.com/2026-1-NCC3/Projeto1/blob/main/Documentos/Entrega%202/Projeto%20Interdisciplinar%20Aplicativo%20M%C3%B3vel/mayayamamoto.apk)
+
+### 📌 Como instalar
+
+1. Baixe o arquivo `.apk`
+2. Abra o arquivo no celular Android
+3. Caso solicitado, permita a instalação de fontes desconhecidas
+4. Finalize a instalação normalmente
+
 ## 💻 Configuração para Desenvolvimento
 ### Pré-requisitos
 Antes de começar, certifique-se de ter instalado:
