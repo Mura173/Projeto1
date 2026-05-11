@@ -199,7 +199,7 @@ function PatientProfile() {
           <div>Data de nascimento: {formatarData(paciente.data_nascimento)}</div>
         </div>
         <div style={{ fontWeight: "bold", fontSize: "16px", alignSelf: "flex-start" }}>
-          Status: {prontuario ? prontuario.classificacao : "—"}
+          Status: {paciente.is_ativo ? "Ativo" : "Inativo"}
         </div>
       </div>
 
@@ -218,7 +218,7 @@ function PatientProfile() {
                 </ItemCard>
               ))
             }
-            {mostrarFormOrientacao ? (
+            {paciente.is_ativo && (mostrarFormOrientacao ? (
               <div style={{ backgroundColor: "white", borderRadius: "8px", padding: "12px 16px", border: "1px solid #3EBAD2" }}>
                 <textarea
                   className="form-control"
@@ -240,7 +240,7 @@ function PatientProfile() {
               <button onClick={() => setMostrarFormOrientacao(true)} style={{ ...BTN_SALVAR, cursor: "pointer", alignSelf: "flex-start" }}>
                 + Nova Orientação
               </button>
-            )}
+            ))}
           </CollapsibleSection>
 
           <CollapsibleSection titulo="Exercícios Prescritos">
@@ -254,7 +254,7 @@ function PatientProfile() {
               ))
             }
 
-            {(() => {
+            {paciente.is_ativo && (() => {
               const jaPrescritos = new Set(prontuario.prontuarios_exercicios.map(p => p.exercicios.id_exercicio))
               const disponiveis = exerciciosDisponiveis.filter(e => !jaPrescritos.has(e.id_exercicio))
               if (disponiveis.length === 0) return null
@@ -299,7 +299,7 @@ function PatientProfile() {
                   </ItemCard>
                 ))
               }
-              {mostrarFormQueixa ? (
+              {paciente.is_ativo && (mostrarFormQueixa ? (
                 <div style={{ backgroundColor: "white", borderRadius: "8px", padding: "12px 16px", border: "1px solid #3EBAD2", marginTop: "8px" }}>
                   <textarea
                     className="form-control"
@@ -321,7 +321,7 @@ function PatientProfile() {
                 <button onClick={() => setMostrarFormQueixa(true)} style={{ ...BTN_SALVAR, cursor: "pointer", marginTop: "8px" }}>
                   + Nova Queixa
                 </button>
-              )}
+              ))}
             </div>
 
             <div>
@@ -334,7 +334,7 @@ function PatientProfile() {
                   </ItemCard>
                 ))
               }
-              {mostrarFormSinal ? (
+              {paciente.is_ativo && (mostrarFormSinal ? (
                 <div style={{ backgroundColor: "white", borderRadius: "8px", padding: "12px 16px", border: "1px solid #3EBAD2", marginTop: "8px" }}>
                   <input
                     type="text"
@@ -369,7 +369,7 @@ function PatientProfile() {
                 <button onClick={() => setMostrarFormSinal(true)} style={{ ...BTN_SALVAR, cursor: "pointer", marginTop: "8px" }}>
                   + Novo Sinal
                 </button>
-              )}
+              ))}
             </div>
 
             <div>
@@ -383,7 +383,7 @@ function PatientProfile() {
                   </ItemCard>
                 ))
               }
-              {mostrarFormAvaliacao ? (
+              {paciente.is_ativo && (mostrarFormAvaliacao ? (
                 <div style={{ backgroundColor: "white", borderRadius: "8px", padding: "12px 16px", border: "1px solid #3EBAD2", marginTop: "8px" }}>
                   <textarea
                     className="form-control"
@@ -405,7 +405,7 @@ function PatientProfile() {
                 <button onClick={() => setMostrarFormAvaliacao(true)} style={{ ...BTN_SALVAR, cursor: "pointer", marginTop: "8px" }}>
                   + Nova Avaliação
                 </button>
-              )}
+              ))}
             </div>
 
           </CollapsibleSection>

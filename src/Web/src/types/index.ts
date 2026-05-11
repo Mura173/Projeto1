@@ -48,6 +48,7 @@ export interface ProntuarioCompleto {
 
 export interface PacienteCompleto{
     id_paciente: number
+    is_ativo: boolean
     nome: string
     email: string
     data_nascimento: string
