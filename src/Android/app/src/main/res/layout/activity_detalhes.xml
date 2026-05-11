@@ -43,7 +43,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginTop="100dp"
-        app:srcCompat="@drawable/arrow_right"
+        app:srcCompat="@drawable/outline_arrow_right"
         app:layout_constraintStart_toEndOf="@+id/imgExercicio"
         app:layout_constraintTop_toBottomOf="@+id/txtNomeExercicio" />
 
@@ -52,7 +52,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginTop="100dp"
-        app:srcCompat="@drawable/arrow_left"
+        app:srcCompat="@drawable/outline_arrow_left"
         app:layout_constraintEnd_toStartOf="@+id/imgExercicio"
         app:layout_constraintTop_toBottomOf="@+id/txtNomeExercicio" />
 
