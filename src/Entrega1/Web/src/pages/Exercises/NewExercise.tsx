@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { criarExercicio } from "../../services/exercicios"
 
 function NewExercise() {
   const navigate = useNavigate()
@@ -11,15 +10,12 @@ function NewExercise() {
   const [tags, setTags] = useState<string[]>([])
   const [imagens, setImagens] = useState<string[]>([])
   const [urlInput, setUrlInput] = useState("")
-  const [loading, setLoading] = useState(false)
   const [erro, setErro] = useState("")
   const [sucesso, setSucesso] = useState(false)
 
   const addTag = () => {
     const tag = tagInput.trim()
-    if (tag && !tags.includes(tag)) {
-      setTags([...tags, tag])
-    }
+    if (tag && !tags.includes(tag)) setTags([...tags, tag])
     setTagInput("")
   }
 
@@ -29,30 +25,18 @@ function NewExercise() {
 
   const addUrlImagem = () => {
     const url = urlInput.trim()
-    if (url && !imagens.includes(url)) {
-      setImagens(prev => [...prev, url])
-    }
+    if (url && !imagens.includes(url)) setImagens(prev => [...prev, url])
     setUrlInput("")
   }
 
-  const handleSalvar = async () => {
+  const handleSalvar = () => {
     if (!titulo.trim() || !descricao.trim() || !orientacoes.trim()) {
       setErro("Título, descrição e orientações são obrigatórios.")
       return
     }
-
     setErro("")
-    setLoading(true)
-
-    try {
-      await criarExercicio({ titulo, descricao, orientacoes, tags, imagens })
-      setSucesso(true)
-      setTimeout(() => navigate("/exercicios"), 2000)
-    } catch (e) {
-      setErro(e instanceof Error ? e.message : "Erro ao cadastrar exercício.")
-    } finally {
-      setLoading(false)
-    }
+    setSucesso(true)
+    setTimeout(() => navigate("/exercicios"), 2000)
   }
 
   return (
@@ -208,14 +192,13 @@ function NewExercise() {
       <div className="mt-4 d-flex gap-3">
         <button
           onClick={handleSalvar}
-          disabled={loading || sucesso}
-          style={{ backgroundColor: "#01577A", color: "white", border: "none", borderRadius: "8px", padding: "10px 32px", fontWeight: "500", fontSize: "16px", cursor: (loading || sucesso) ? "not-allowed" : "pointer", opacity: (loading || sucesso) ? 0.7 : 1 }}
+          disabled={sucesso}
+          style={{ backgroundColor: "#01577A", color: "white", border: "none", borderRadius: "8px", padding: "10px 32px", fontWeight: "500", fontSize: "16px", cursor: sucesso ? "not-allowed" : "pointer", opacity: sucesso ? 0.7 : 1 }}
         >
-          {loading ? "Salvando..." : "Salvar"}
+          Salvar
         </button>
         <button
           onClick={() => navigate("/exercicios")}
-          disabled={loading}
           style={{ backgroundColor: "#ccc", color: "#333", border: "none", borderRadius: "8px", padding: "10px 32px", fontWeight: "500", fontSize: "16px", cursor: "pointer" }}
         >
           Cancelar
